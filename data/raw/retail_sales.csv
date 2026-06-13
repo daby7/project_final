@@ -1,0 +1,61 @@
+order_id,date,customer_name,category,region,product_name,quantity,price,discount,customer_segment,payment_method,sales,customer_id,product_id
+ORD-1001,2026-05-19,Daniel Mizrahi,Furniture,Tel Aviv,Desk Lamp,8,31.5,0.15,Student,Credit Card,214.2,daniel_mizrahi,desk_lamp
+ORD-1002,2026-02-14,Noa Levi,Clothing,Jerusalem,Sneakers,2,69.0,0.15,Retail,Apple Pay,117.3,noa_levi,sneakers
+ORD-1003,2026-04-25,Yousef Nassar,Electronics,Nazareth,USB-C Hub,1,42.0,0.15,Retail,PayPal,35.7,yousef_nassar,usb-c_hub
+ORD-1004,2026-03-16,Eli Ben Ami,Groceries,Ramallah,Pasta Pack,3,4.2,0.0,VIP,Bank Transfer,12.6,eli_ben_ami,pasta_pack
+ORD-1005,2026-05-24,Yousef Nassar,Groceries,Beer Sheva,Chocolate Box,5,7.5,0.15,VIP,Apple Pay,31.88,yousef_nassar,chocolate_box
+ORD-1006,2026-04-11,Rami Khalil,Furniture,Jerusalem,Study Desk,2,220.0,0.05,Retail,Credit Card,418.0,rami_khalil,study_desk
+ORD-1007,2026-04-07,Mariam Toma,Beauty,Tel Aviv,Face Cream,7,28.0,0.0,Corporate,Apple Pay,196.0,mariam_toma,face_cream
+ORD-1008,2026-04-21,David Peretz,Beauty,Beer Sheva,Body Lotion,4,19.5,0.1,Corporate,PayPal,70.2,david_peretz,body_lotion
+ORD-1009,2026-02-09,Omar Haddad,Beauty,Jerusalem,Perfume,1,65.0,0.15,VIP,PayPal,55.25,omar_haddad,perfume
+ORD-1010,2026-01-22,Tala Shami,Clothing,Ramallah,T-Shirt,2,18.0,0.1,VIP,PayPal,32.4,tala_shami,t-shirt
+ORD-1011,2026-01-09,Hana Dawood,Clothing,Beer Sheva,Jeans,6,45.0,0.2,Corporate,Cash,216.0,hana_dawood,jeans
+ORD-1012,2026-05-12,Yousef Nassar,Clothing,Tel Aviv,Cap,5,14.5,0.15,Student,Credit Card,61.62,yousef_nassar,cap
+ORD-1013,2026-03-26,Tala Shami,Furniture,Tel Aviv,Study Desk,8,220.0,0.0,Student,PayPal,1760.0,tala_shami,study_desk
+ORD-1014,2026-03-31,Tala Shami,Electronics,Beer Sheva,Keyboard,7,49.99,0.2,VIP,Credit Card,279.94,tala_shami,keyboard
+ORD-1015,2026-04-22,Adam Barakat,Beauty,Ramallah,Shampoo,1,11.9,0.2,Retail,Apple Pay,9.52,adam_barakat,shampoo
+ORD-1016,2026-01-09,Lina Khoury,Groceries,Nazareth,Pasta Pack,8,4.2,0.1,VIP,PayPal,30.24,lina_khoury,pasta_pack
+ORD-1017,2026-04-24,Ahmad Saleh,Groceries,Beer Sheva,Coffee Beans,6,12.99,0.2,Corporate,Cash,62.35,ahmad_saleh,coffee_beans
+ORD-1018,2026-02-09,David Peretz,Furniture,Ramallah,Office Chair,4,149.0,0.0,Corporate,Bank Transfer,596.0,david_peretz,office_chair
+ORD-1019,2026-04-21,Adam Barakat,Electronics,Beer Sheva,Laptop Stand,1,34.5,0.15,VIP,Cash,29.32,adam_barakat,laptop_stand
+ORD-1020,2026-02-21,Noa Levi,Electronics,Tel Aviv,Keyboard,4,49.99,0.15,VIP,Bank Transfer,169.97,noa_levi,keyboard
+ORD-1021,2026-01-12,Lina Khoury,Clothing,Ramallah,Jeans,5,45.0,0.05,VIP,Cash,213.75,lina_khoury,jeans
+ORD-1022,2026-01-16,Eli Ben Ami,Furniture,Jerusalem,Study Desk,2,220.0,0.15,VIP,PayPal,374.0,eli_ben_ami,study_desk
+ORD-1023,2026-02-18,Lina Khoury,Furniture,Ramallah,Storage Cabinet,8,180.0,0.2,Student,Apple Pay,1152.0,lina_khoury,storage_cabinet
+ORD-1024,2026-03-05,Adam Barakat,Electronics,Beer Sheva,Wireless Mouse,6,25.99,0.1,Student,Bank Transfer,140.35,adam_barakat,wireless_mouse
+ORD-1025,2026-03-01,Yousef Nassar,Electronics,Tel Aviv,USB-C Hub,3,42.0,0.0,Student,PayPal,126.0,yousef_nassar,usb-c_hub
+ORD-1026,2026-04-21,Rami Khalil,Clothing,Tel Aviv,Jacket,1,79.9,0.05,Student,Apple Pay,75.91,rami_khalil,jacket
+ORD-1027,2026-03-07,Noa Levi,Electronics,Tel Aviv,Wireless Mouse,3,25.99,0.15,Corporate,Credit Card,66.27,noa_levi,wireless_mouse
+ORD-1028,2026-05-08,Adam Barakat,Electronics,Jerusalem,Keyboard,5,49.99,0.2,VIP,Bank Transfer,199.96,adam_barakat,keyboard
+ORD-1029,2026-05-08,Tala Shami,Clothing,Haifa,Sneakers,5,69.0,0.15,VIP,Credit Card,293.25,tala_shami,sneakers
+ORD-1030,2026-05-03,Eli Ben Ami,Electronics,Jerusalem,Keyboard,3,49.99,0.05,Retail,PayPal,142.47,eli_ben_ami,keyboard
+ORD-1031,2026-01-10,Omar Haddad,Beauty,Haifa,Shampoo,3,11.9,0.05,Corporate,Apple Pay,33.91,omar_haddad,shampoo
+ORD-1032,2026-01-12,Tala Shami,Beauty,Haifa,Face Cream,6,28.0,0.15,Student,Bank Transfer,142.8,tala_shami,face_cream
+ORD-1033,2026-02-02,Lina Khoury,Furniture,Beer Sheva,Office Chair,3,149.0,0.2,Student,Apple Pay,357.6,lina_khoury,office_chair
+ORD-1034,2026-02-06,Mariam Toma,Electronics,Nazareth,Bluetooth Speaker,1,59.9,0.2,VIP,Bank Transfer,47.92,mariam_toma,bluetooth_speaker
+ORD-1035,2026-05-09,Ahmad Saleh,Furniture,Ramallah,Desk Lamp,8,31.5,0.15,Retail,Bank Transfer,214.2,ahmad_saleh,desk_lamp
+ORD-1036,2026-02-05,Tala Shami,Clothing,Beer Sheva,T-Shirt,3,18.0,0.0,Student,Credit Card,54.0,tala_shami,t-shirt
+ORD-1037,2026-04-27,Yousef Nassar,Groceries,Jerusalem,Olive Oil,2,16.5,0.05,Retail,Apple Pay,31.35,yousef_nassar,olive_oil
+ORD-1038,2026-03-08,Sara Mansour,Furniture,Jerusalem,Study Desk,2,220.0,0.1,VIP,PayPal,396.0,sara_mansour,study_desk
+ORD-1039,2026-02-12,Eli Ben Ami,Electronics,Nazareth,Wireless Mouse,8,25.99,0.05,Corporate,Cash,197.52,eli_ben_ami,wireless_mouse
+ORD-1040,2026-01-27,Rami Khalil,Beauty,Jerusalem,Body Lotion,6,19.5,0.2,Retail,Credit Card,93.6,rami_khalil,body_lotion
+ORD-1041,2026-01-20,Maya Cohen,Electronics,Haifa,Keyboard,8,49.99,0.2,VIP,Bank Transfer,319.94,maya_cohen,keyboard
+ORD-1042,2026-02-19,Daniel Mizrahi,Groceries,Tel Aviv,Pasta Pack,4,4.2,0.2,Retail,Credit Card,13.44,daniel_mizrahi,pasta_pack
+ORD-1043,2026-04-08,Maya Cohen,Beauty,Haifa,Face Cream,4,28.0,0.1,VIP,Cash,100.8,maya_cohen,face_cream
+ORD-1044,2026-06-03,Daniel Mizrahi,Clothing,Ramallah,Jacket,1,79.9,0.15,Retail,PayPal,67.92,daniel_mizrahi,jacket
+ORD-1045,2026-05-13,Ahmad Saleh,Clothing,Nazareth,Jeans,6,45.0,0.0,Retail,Bank Transfer,270.0,ahmad_saleh,jeans
+ORD-1046,2026-01-27,Rami Khalil,Furniture,Haifa,Bookshelf,6,95.0,0.05,Retail,Apple Pay,541.5,rami_khalil,bookshelf
+ORD-1047,2026-01-16,Tala Shami,Electronics,Haifa,Laptop Stand,1,34.5,0.0,VIP,PayPal,34.5,tala_shami,laptop_stand
+ORD-1048,2026-03-07,Tala Shami,Groceries,Haifa,Olive Oil,1,16.5,0.1,VIP,Bank Transfer,14.85,tala_shami,olive_oil
+ORD-1049,2026-06-04,Omar Haddad,Electronics,Ramallah,Keyboard,2,49.99,0.05,Student,PayPal,94.98,omar_haddad,keyboard
+ORD-1050,2026-01-31,Omar Haddad,Beauty,Nazareth,Perfume,5,65.0,0.1,Corporate,Bank Transfer,292.5,omar_haddad,perfume
+ORD-1051,2026-04-07,Rami Khalil,Beauty,Nazareth,Face Cream,1,28.0,0.0,VIP,PayPal,28.0,rami_khalil,face_cream
+ORD-1052,2026-04-15,Hana Dawood,Furniture,Nazareth,Bookshelf,1,95.0,0.0,VIP,PayPal,95.0,hana_dawood,bookshelf
+ORD-1053,2026-01-25,Rami Khalil,Beauty,Ramallah,Perfume,2,65.0,0.0,Corporate,Apple Pay,130.0,rami_khalil,perfume
+ORD-1054,2026-05-09,David Peretz,Clothing,Haifa,T-Shirt,3,18.0,0.1,Retail,Cash,48.6,david_peretz,t-shirt
+ORD-1055,2026-02-20,Maya Cohen,Groceries,Ramallah,Chocolate Box,2,7.5,0.1,Student,PayPal,13.5,maya_cohen,chocolate_box
+ORD-1056,2026-03-12,Omar Haddad,Furniture,Beer Sheva,Storage Cabinet,3,180.0,0.1,Student,Credit Card,486.0,omar_haddad,storage_cabinet
+ORD-1057,2026-05-28,David Peretz,Electronics,Jerusalem,Keyboard,7,49.99,0.2,Retail,Cash,279.94,david_peretz,keyboard
+ORD-1058,2026-01-20,Yousef Nassar,Electronics,Tel Aviv,Laptop Stand,7,34.5,0.0,Retail,Credit Card,241.5,yousef_nassar,laptop_stand
+ORD-1059,2026-04-03,Eli Ben Ami,Furniture,Jerusalem,Desk Lamp,8,31.5,0.0,Retail,Apple Pay,252.0,eli_ben_ami,desk_lamp
+ORD-1060,2026-01-31,David Peretz,Electronics,Beer Sheva,Bluetooth Speaker,4,59.9,0.15,VIP,Apple Pay,203.66,david_peretz,bluetooth_speaker

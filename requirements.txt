@@ -1,0 +1,10 @@
+crewai
+crewai-tools
+pandas
+scikit-learn
+matplotlib
+joblib
+python-dotenv
+flask
+openai
+gunicorn

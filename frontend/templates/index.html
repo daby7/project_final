@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" dir="rtl" lang="ar">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>RetailSense AI</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <!-- Tailwind Play CDN (pinned to the exact version to avoid 302 redirect;
+       a redirect makes the <script> tag non-blocking so the inline config
+       that follows can execute before Tailwind initialises). -->
+  <script src="https://cdn.tailwindcss.com/3.4.17?plugins=forms@0.5.10,container-queries@0.1.1"></script>
+
+  <!-- Tailwind custom config — placed AFTER the CDN script so window.tailwind
+       is guaranteed to exist when this runs. -->
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "outline-variant": "#c3c6d7",
+            "inverse-surface": "#2e3039",
+            "inverse-on-surface": "#f0f0fb",
+            "surface-container-high": "#e7e7f3",
+            "on-tertiary-container": "#bdffdb",
+            "secondary-fixed-dim": "#bec6e0",
+            "on-error-container": "#93000a",
+            "on-surface": "#191b23",
+            "on-tertiary-fixed": "#002113",
+            "surface-dim": "#d9d9e5",
+            "primary-container": "#2563eb",
+            "secondary-container": "#dae2fd",
+            "secondary": "#565e74",
+            "surface-container-highest": "#e1e2ed",
+            "error": "#ba1a1a",
+            "on-secondary-fixed": "#131b2e",
+            "on-tertiary": "#ffffff",
+            "outline": "#737686",
+            "on-secondary": "#ffffff",
+            "primary-fixed": "#dbe1ff",
+            "secondary-fixed": "#dae2fd",
+            "on-primary-fixed-variant": "#003ea8",
+            "surface-container": "#ededf9",
+            "tertiary-container": "#007d55",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed": "#00174b",
+            "surface-bright": "#faf8ff",
+            "on-surface-variant": "#434655",
+            "inverse-primary": "#b4c5ff",
+            "tertiary-fixed-dim": "#4edea3",
+            "surface-variant": "#e1e2ed",
+            "surface-tint": "#0053db",
+            "primary": "#004ac6",
+            "surface": "#faf8ff",
+            "tertiary-fixed": "#6ffbbe",
+            "on-secondary-container": "#5c647a",
+            "on-secondary-fixed-variant": "#3f465c",
+            "primary-fixed-dim": "#b4c5ff",
+            "on-tertiary-fixed-variant": "#005236",
+            "on-error": "#ffffff",
+            "on-primary": "#ffffff",
+            "background": "#faf8ff",
+            "on-primary-container": "#eeefff",
+            "on-background": "#191b23",
+            "error-container": "#ffdad6",
+            "on-error-container": "#410002",
+            "tertiary": "#006242",
+            "surface-container-low": "#f3f3fe"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "gutter": "24px",
+            "xs": "8px",
+            "sm": "12px",
+            "md": "16px",
+            "lg": "24px",
+            "xl": "32px",
+            "2xl": "48px",
+            "container-margin": "32px",
+            "base": "4px"
+          },
+          fontFamily: {
+            "headline-xl":       ["Plus Jakarta Sans","Noto Kufi Arabic","Noto Sans Arabic","Noto Sans Hebrew","sans-serif"],
+            "headline-lg":       ["Plus Jakarta Sans","Noto Kufi Arabic","Noto Sans Arabic","Noto Sans Hebrew","sans-serif"],
+            "headline-lg-mobile":["Plus Jakarta Sans","Noto Kufi Arabic","Noto Sans Arabic","Noto Sans Hebrew","sans-serif"],
+            "headline-md":       ["Plus Jakarta Sans","Noto Kufi Arabic","Noto Sans Arabic","Noto Sans Hebrew","sans-serif"],
+            "headline-sm":       ["Plus Jakarta Sans","Noto Kufi Arabic","Noto Sans Arabic","Noto Sans Hebrew","sans-serif"],
+            "body-lg":   ["Inter","Noto Sans Arabic","Noto Sans Hebrew","sans-serif"],
+            "body-md":   ["Inter","Noto Sans Arabic","Noto Sans Hebrew","sans-serif"],
+            "body-sm":   ["Inter","Noto Sans Arabic","Noto Sans Hebrew","sans-serif"],
+            "label-md":  ["Inter","Noto Sans Arabic","Noto Sans Hebrew","sans-serif"],
+            "label-sm":  ["Inter","Noto Sans Arabic","Noto Sans Hebrew","sans-serif"]
+          },
+          fontSize: {
+            "headline-xl":        ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg":        ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+            "headline-md":        ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+            "headline-sm":        ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-lg":            ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "body-md":            ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "body-sm":            ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-md":           ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+            "label-sm":           ["12px", { "lineHeight": "16px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- ApexCharts CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.45.1/dist/apexcharts.min.js"></script>
+
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+
+<body class="text-on-surface bg-background">
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     UNIFIED HEADER  (always visible)
+════════════════════════════════════════════════════════════════════════ -->
+<header id="app-header" class="fixed top-0 w-full z-50">
+  <div class="flex justify-between items-center px-container-margin max-w-7xl mx-auto h-[60px] gap-md">
+
+    <!-- Logo -->
+    <div class="flex items-center gap-sm shrink-0">
+      <span class="material-symbols-outlined fill text-primary text-[26px] no-mirror">bar_chart</span>
+      <span class="text-headline-sm font-headline-sm text-primary font-bold tracking-tight leading-none">RetailSense AI</span>
+    </div>
+
+    <!-- Main nav tabs (hidden on small screens) -->
+    <nav class="hidden lg:flex items-center gap-xs">
+      <button class="nav-btn active" data-nav="home"       onclick="navigate('home')"       data-key="nav_home">الرئيسية</button>
+      <button class="nav-btn"        data-nav="dashboard"  onclick="navigate('dashboard')"  data-key="nav_dashboard">لوحة التحكم</button>
+      <button class="nav-btn"        data-nav="upload"     onclick="navigate('upload')"     data-key="nav_upload">رفع البيانات</button>
+      <button class="nav-btn"        data-nav="prediction" onclick="navigate('prediction')" data-key="nav_prediction">التنبؤ</button>
+      <button class="nav-btn"        data-nav="agent"      onclick="navigate('agent')"      data-key="nav_agent">وكيل البيانات الذكي</button>
+    </nav>
+
+    <!-- Right controls -->
+    <div class="flex items-center gap-sm shrink-0">
+      <!-- Health dot -->
+      <div id="health-dot" class="status-dot" title="Backend status"></div>
+
+      <!-- Language switcher -->
+      <div class="relative">
+        <button id="lang-switcher-btn" onclick="toggleLangDropdown()"
+          class="flex items-center gap-xs px-sm py-1 rounded-lg border border-outline-variant hover:bg-surface-container transition-all text-label-sm text-on-surface">
+          <span class="material-symbols-outlined text-[17px] no-mirror">language</span>
+          <span id="current-lang-label">العربية</span>
+          <span class="material-symbols-outlined text-[14px] no-mirror">expand_more</span>
+        </button>
+        <div id="lang-dropdown"
+          class="dropdown-menu absolute top-full mt-1 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-xl z-50 overflow-hidden min-w-[126px] end-0">
+          <button class="w-full px-md py-sm hover:bg-primary-fixed transition-colors text-label-sm text-start" onclick="setLanguage('ar')">العربية</button>
+          <button class="w-full px-md py-sm hover:bg-primary-fixed transition-colors text-label-sm text-start" onclick="setLanguage('en')">English</button>
+          <button class="w-full px-md py-sm hover:bg-primary-fixed transition-colors text-label-sm text-start" onclick="setLanguage('he')">עברית</button>
+        </div>
+      </div>
+
+      <!-- Mobile menu (shows on small screens) -->
+      <div class="flex lg:hidden items-center gap-xs">
+        <button onclick="navigate('dashboard')" class="text-label-sm text-primary border border-primary/30 px-sm py-1 rounded-lg" data-key="nav_dashboard">لوحة التحكم</button>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MAIN  —  all sections live here, toggled by navigate()
+════════════════════════════════════════════════════════════════════════ -->
+<main class="pt-[60px]">
+
+<!-- ╔═══════════════════════════════════════════════════╗
+     ║  HOME  —  Landing page content                    ║
+     ╚═══════════════════════════════════════════════════╝ -->
+<div id="section-home" class="app-section active">
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden hero-gradient py-2xl min-h-[760px] flex items-center" id="home">
+    <div class="max-w-7xl mx-auto px-container-margin grid grid-cols-1 lg:grid-cols-2 gap-2xl items-center relative z-10">
+      <div class="space-y-xl text-right hero-content">
+        <div class="inline-flex items-center gap-xs bg-primary/10 text-primary px-md py-base rounded-full">
+          <span class="material-symbols-outlined text-[18px] no-mirror">auto_awesome</span>
+          <span class="text-label-sm font-label-sm" data-key="hero-badge">مستقبل البيع بالتجزئة الذكي</span>
+        </div>
+        <h1 class="text-headline-xl font-headline-xl text-on-surface leading-tight" data-key="hero-title">
+          افهم عملك، وتوقع مستقبلك
+        </h1>
+        <p class="text-body-lg font-body-lg text-on-surface-variant max-w-xl leading-relaxed" data-key="hero-desc">
+          نحول بيانات مبيعاتك المعقدة إلى قصص واضحة وتوقعات ذكية تساعدك على اتخاذ قرارات أفضل.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-md pt-md cta-buttons">
+          <button data-goto="upload"
+            class="bg-primary text-on-primary px-2xl py-md rounded-xl text-headline-sm font-headline-sm shadow-lg hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-sm">
+            <span data-key="hero-cta-primary">ابدأ الآن</span>
+            <span class="material-symbols-outlined icon-flip">arrow_back</span>
+          </button>
+          <button data-goto="dashboard"
+            class="bg-surface-container-lowest border border-outline-variant text-on-surface px-2xl py-md rounded-xl text-headline-sm font-headline-sm hover:bg-surface-container transition-all flex items-center justify-center gap-sm">
+            <span data-key="hero-cta-secondary">مشاهدة تجريبية</span>
+            <span class="material-symbols-outlined no-mirror">play_circle</span>
+          </button>
+        </div>
+        <div class="flex items-center gap-lg pt-lg">
+          <div class="flex -space-x-3 space-x-reverse avatar-group">
+            <div class="w-10 h-10 rounded-full border-2 border-surface bg-slate-200"></div>
+            <div class="w-10 h-10 rounded-full border-2 border-surface bg-slate-300"></div>
+            <div class="w-10 h-10 rounded-full border-2 border-surface bg-slate-400"></div>
+          </div>
+          <span class="text-label-md font-label-md text-on-surface-variant" data-key="hero-social">انضم إلى +500 متجر ناجح</span>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="retail-card p-sm overflow-hidden relative">
+          <img alt="RetailSense Analytics Dashboard" class="w-full h-auto rounded-lg shadow-xl"
+            src="/static/hero-dashboard.jpg"/>
+          <div class="absolute top-lg end-lg bg-surface-container-lowest/90 backdrop-blur-md p-md rounded-xl shadow-xl border border-white/20">
+            <div class="flex items-center gap-sm">
+              <div class="w-8 h-8 rounded-full bg-tertiary/10 text-tertiary flex items-center justify-center">
+                <span class="material-symbols-outlined text-sm no-mirror">trending_up</span>
+              </div>
+              <div>
+                <p class="text-label-sm font-label-sm text-on-surface-variant" data-key="kpi-label">نمو المبيعات</p>
+                <p class="text-headline-sm font-headline-sm text-on-surface">+24.5%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="py-2xl bg-surface" id="how-it-works">
+    <div class="max-w-7xl mx-auto px-container-margin">
+      <div class="text-center mb-2xl">
+        <h2 class="text-headline-lg font-headline-lg text-on-surface mb-md" data-key="how-title">كيف نعمل؟</h2>
+        <p class="text-body-md font-body-md text-on-surface-variant max-w-2xl mx-auto" data-key="how-subtitle">
+          ثلاث خطوات بسيطة تحول متجرك التقليدي إلى واحة من البيانات الذكية والقرارات المدروسة.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-xl">
+        <div class="retail-card p-xl flex flex-col items-center text-center space-y-md">
+          <div class="w-16 h-16 rounded-full bg-primary-container/10 text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[32px] no-mirror">database</span>
+          </div>
+          <h3 class="text-headline-sm font-headline-sm text-on-surface" data-key="step1-title">نجمع البيانات</h3>
+          <p class="text-body-sm font-body-sm text-on-surface-variant leading-relaxed" data-key="step1-desc">
+            نقوم بربط أنظمة المبيعات والمخزون الحالية لجمع كافة التفاصيل الهامة لعملك.
+          </p>
+        </div>
+        <div class="retail-card p-xl flex flex-col items-center text-center space-y-md">
+          <div class="w-16 h-16 rounded-full bg-tertiary-container/10 text-tertiary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[32px] no-mirror">insights</span>
+          </div>
+          <h3 class="text-headline-sm font-headline-sm text-on-surface" data-key="step2-title">نفهم ما حدث</h3>
+          <p class="text-body-sm font-body-sm text-on-surface-variant leading-relaxed" data-key="step2-desc">
+            يحلل الذكاء الاصطناعي الأنماط التاريخية لمبيعاتك ليفهم سلوك العملاء الحقيقي.
+          </p>
+        </div>
+        <div class="retail-card p-xl flex flex-col items-center text-center space-y-md">
+          <div class="w-16 h-16 rounded-full bg-secondary-container/20 text-secondary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[32px] no-mirror">clear_all</span>
+          </div>
+          <h3 class="text-headline-sm font-headline-sm text-on-surface" data-key="step3-title">نتوقع القادم</h3>
+          <p class="text-body-sm font-body-sm text-on-surface-variant leading-relaxed" data-key="step3-desc">
+            نقدم لك توقعات دقيقة للطلبات القادمة والمخزون، لتخطط بذكاء وتتجنب المفاجآت.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="py-2xl bg-surface-container-low" id="benefits">
+    <div class="max-w-7xl mx-auto px-container-margin">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-2xl gap-lg benefits-header">
+        <div class="text-right benefits-title-group">
+          <h2 class="text-headline-lg font-headline-lg text-on-surface mb-xs" data-key="benefits-title">لماذا يختارنا الرواد؟</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant" data-key="benefits-subtitle">استثمر في ذكاء عملك لضمان الريادة في السوق.</p>
+        </div>
+        <button class="text-primary font-bold text-label-md font-label-md flex items-center gap-xs hover:underline decoration-2 underline-offset-4 transition-all">
+          <span data-key="benefits-cta">تحدث مع خبير</span>
+          <span class="material-symbols-outlined no-mirror">call</span>
+        </button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+        <div class="md:col-span-8 retail-card p-xl flex flex-col md:flex-row gap-xl items-center overflow-hidden">
+          <div class="flex-1 space-y-md">
+            <div class="bg-primary/10 text-primary w-fit px-md py-base rounded-full text-label-sm font-label-sm" data-key="feat1-badge">ميزة ذكية</div>
+            <h3 class="text-headline-md font-headline-md text-on-surface" data-key="feat1-title">قرارات أسرع بمراحل</h3>
+            <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed" data-key="feat1-desc">
+              بدلاً من قضاء ساعات في تحليل الجداول المعقدة، نقدم لك لوحة تحكم فورية تبرز لك الفرص والمخاطر بنظرة واحدة.
+            </p>
+          </div>
+          <div class="flex-1 w-full h-48 md:h-full bg-surface-container rounded-xl relative overflow-hidden">
+            <img alt="Data Insights" class="absolute inset-0 w-full h-full object-cover rounded-xl"
+              src="/static/hero-insights.jpg"/>
+          </div>
+        </div>
+        <div class="md:col-span-4 retail-card p-xl bg-primary text-on-primary flex flex-col justify-between">
+          <div class="w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center mb-xl">
+            <span class="material-symbols-outlined text-[28px] no-mirror">calendar_today</span>
+          </div>
+          <div>
+            <h3 class="text-headline-sm font-headline-sm mb-sm" data-key="feat2-title">تخطيط أفضل للمستقبل</h3>
+            <p class="text-body-sm font-body-sm opacity-90 leading-relaxed" data-key="feat2-desc">
+              اعرف ما سيباع قبل حدوثه. قلل الهدر في المخزون وارفع أرباحك من خلال التنبؤ الدقيق بالطلب.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-2xl">
+    <div class="max-w-5xl mx-auto px-container-margin">
+      <div class="bg-inverse-surface text-inverse-on-surface rounded-2xl p-2xl text-center relative overflow-hidden">
+        <div class="relative z-10 space-y-lg">
+          <h2 class="text-headline-xl font-headline-xl" data-key="cta-box-title">هل أنت مستعد لقيادة ثورة البيانات في متجرك؟</h2>
+          <p class="text-body-lg font-body-lg text-white/70 max-w-2xl mx-auto" data-key="cta-box-desc">
+            انضم إلى مئات الشركات التي حولت قراراتها من "تخمين" إلى "يقين".
+          </p>
+          <div class="flex flex-col sm:flex-row justify-center gap-md pt-lg">
+            <button data-goto="dashboard"
+              class="bg-primary text-on-primary px-2xl py-md rounded-xl text-headline-sm font-headline-sm hover:scale-105 transition-transform"
+              data-key="cta-box-btn-primary">ابدأ مع لوحة التحكم</button>
+            <button data-goto="upload"
+              class="bg-transparent border border-white/30 text-white px-2xl py-md rounded-xl text-headline-sm font-headline-sm hover:bg-white/10 transition-all"
+              data-key="cta-box-btn-secondary">رفع البيانات</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-surface-container-lowest py-2xl border-t border-outline-variant/20">
+    <div class="max-w-7xl mx-auto px-container-margin">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg mb-xl">
+        <div class="space-y-md text-right footer-col">
+          <span class="text-headline-sm font-headline-sm text-on-surface">RetailSense AI</span>
+          <p class="text-body-sm font-body-sm text-on-surface-variant" data-key="footer-about">
+            الجيل القادم من تحليلات التجزئة المدعومة بالذكاء الاصطناعي.
+          </p>
+        </div>
+        <div class="space-y-md text-right footer-col">
+          <h4 class="text-label-md font-label-md text-on-surface font-bold" data-key="footer-product">المنتج</h4>
+          <ul class="space-y-sm">
+            <li><button onclick="navigate('dashboard')" class="text-body-sm font-body-sm text-on-surface-variant hover:text-primary transition-colors" data-key="nav_dashboard">لوحة التحكم</button></li>
+            <li><button onclick="navigate('prediction')" class="text-body-sm font-body-sm text-on-surface-variant hover:text-primary transition-colors" data-key="nav_prediction">التنبؤ</button></li>
+            <li><button onclick="navigate('upload')" class="text-body-sm font-body-sm text-on-surface-variant hover:text-primary transition-colors" data-key="nav_upload">رفع البيانات</button></li>
+          </ul>
+        </div>
+        <div class="space-y-md text-right footer-col">
+          <h4 class="text-label-md font-label-md text-on-surface font-bold" data-key="footer-support">الدعم</h4>
+          <ul class="space-y-sm">
+            <li><button onclick="navigate('upload')" class="text-body-sm font-body-sm text-on-surface-variant hover:text-primary transition-colors" data-key="nav_upload">رفع البيانات</button></li>
+            <li><button onclick="navigate('prediction')" class="text-body-sm font-body-sm text-on-surface-variant hover:text-primary transition-colors" data-key="nav_prediction">التنبؤ</button></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-lg border-t border-outline-variant/10">
+        <p class="text-label-sm font-label-sm text-on-surface-variant text-center" data-key="footer-copy">© 2024 RetailSense AI. جميع الحقوق محفوظة.</p>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /section-home -->
+
+
+<!-- ╔═══════════════════════════════════════════════════╗
+     ║  DASHBOARD                                        ║
+     ╚═══════════════════════════════════════════════════╝ -->
+<div id="section-dashboard" class="app-section">
+
+  <!-- Hero banner (dark) -->
+  <div class="hero-gradient-dark text-white py-xl px-container-margin">
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-xl items-start justify-between">
+      <div class="space-y-sm">
+        <h1 class="text-headline-lg font-headline-lg" data-key="dash_hero_title">لوحة مبيعات التجزئة بالذكاء الاصطناعي</h1>
+        <p class="text-body-md font-body-md text-white/70 max-w-xl" data-key="dash_hero_subtitle">تحليل بيانات المبيعات، اكتشاف الرؤى التجارية، والتنبؤ بالمبيعات المتوقعة.</p>
+        <button onclick="runAnalysis()"
+          class="mt-sm inline-flex items-center gap-sm bg-white/15 hover:bg-white/25 border border-white/20 text-white px-lg py-sm rounded-xl text-label-md transition-all">
+          <span class="material-symbols-outlined text-[18px] no-mirror">psychology</span>
+          <span data-key="btn_run_ai">تشغيل تحليل الذكاء الاصطناعي</span>
+        </button>
+      </div>
+      <div class="glass-panel rounded-xl p-lg w-full lg:w-72 shrink-0">
+        <div class="flex items-center gap-sm mb-sm">
+          <span class="material-symbols-outlined fill text-white/80 no-mirror">tips_and_updates</span>
+          <h3 class="text-label-md font-bold" data-key="hero_box_title">ما الذي تفعله هذه المنصة؟</h3>
+        </div>
+        <p class="text-body-sm text-white/70 leading-relaxed" data-key="hero_box_desc">يعالج محرك الذكاء الاصطناعي بيانات التجزئة الخاصة بك باستمرار لتحديد الاتجاهات الخفية والتنبؤ باحتياجات المخزون.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic content area (loading / empty state shown here) -->
+  <div id="dashboard-state" class="max-w-7xl mx-auto px-container-margin py-lg"></div>
+
+  <!-- KPI Cards -->
+  <div class="max-w-7xl mx-auto px-container-margin pb-lg">
+    <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-md">
+
+      <!-- Total Orders -->
+      <div class="kpi-card primary" onclick="navigate('dashboard')">
+        <div class="kpi-card-header">
+          <span class="kpi-label" data-key="kpi_orders">إجمالي الطلبات</span>
+          <div class="kpi-icon-wrap primary">
+            <span class="material-symbols-outlined text-[18px] no-mirror">shopping_cart</span>
+          </div>
+        </div>
+        <span id="kpi-orders" class="kpi-value" style="color:#004ac6">—</span>
+        <div class="kpi-footer">
+          <span id="kpi-orders-trend" class="kpi-trend up">
+            <span class="material-symbols-outlined text-[13px] no-mirror">trending_up</span>
+            <span>+12%</span>
+          </span>
+          <span class="kpi-vs" data-key="kpi_vs_week">vs last week</span>
+        </div>
+      </div>
+
+      <!-- Total Sales -->
+      <div class="kpi-card success" onclick="navigate('dashboard')">
+        <div class="kpi-card-header">
+          <span class="kpi-label" data-key="kpi_sales">إجمالي المبيعات</span>
+          <div class="kpi-icon-wrap success">
+            <span class="material-symbols-outlined text-[18px] no-mirror">attach_money</span>
+          </div>
+        </div>
+        <span id="kpi-sales" class="kpi-value" style="color:#059669">—</span>
+        <div class="kpi-footer">
+          <span id="kpi-sales-trend" class="kpi-trend up">
+            <span class="material-symbols-outlined text-[13px] no-mirror">trending_up</span>
+            <span>+8.4%</span>
+          </span>
+          <span class="kpi-vs" data-key="kpi_vs_week">vs last week</span>
+        </div>
+      </div>
+
+      <!-- Avg Order Value -->
+      <div class="kpi-card purple" onclick="navigate('dashboard')">
+        <div class="kpi-card-header">
+          <span class="kpi-label" data-key="kpi_aov">متوسط قيمة الطلب</span>
+          <div class="kpi-icon-wrap purple">
+            <span class="material-symbols-outlined text-[18px] no-mirror">receipt_long</span>
+          </div>
+        </div>
+        <span id="kpi-aov" class="kpi-value" style="color:#7c3aed">—</span>
+        <div class="kpi-footer">
+          <span id="kpi-aov-trend" class="kpi-trend down">
+            <span class="material-symbols-outlined text-[13px] no-mirror">trending_down</span>
+            <span>-1.2%</span>
+          </span>
+          <span class="kpi-vs" data-key="kpi_vs_week">vs last week</span>
+        </div>
+      </div>
+
+      <!-- Top Category -->
+      <div class="kpi-card orange" onclick="navigate('dashboard')">
+        <div class="kpi-card-header">
+          <span class="kpi-label" data-key="kpi_category">الفئة الأعلى</span>
+          <div class="kpi-icon-wrap orange">
+            <span class="material-symbols-outlined text-[18px] no-mirror">category</span>
+          </div>
+        </div>
+        <span id="kpi-category" class="kpi-value text-[20px]" style="color:#d97706">—</span>
+        <div class="kpi-footer">
+          <span class="kpi-subtitle" data-key="kpi_top_of_sales">42% من إجمالي المبيعات</span>
+        </div>
+      </div>
+
+      <!-- Top Region -->
+      <div class="kpi-card pink" onclick="navigate('dashboard')">
+        <div class="kpi-card-header">
+          <span class="kpi-label" data-key="kpi_region">المنطقة الأعلى</span>
+          <div class="kpi-icon-wrap pink">
+            <span class="material-symbols-outlined text-[18px] no-mirror">public</span>
+          </div>
+        </div>
+        <span id="kpi-region" class="kpi-value text-[20px]" style="color:#db2777">—</span>
+        <div class="kpi-footer">
+          <span class="kpi-subtitle" data-key="kpi_growing_fast">نمو متسارع</span>
+        </div>
+      </div>
+
+      <!-- AI Forecast -->
+      <div class="kpi-card teal" onclick="navigate('prediction')">
+        <div class="kpi-card-header">
+          <span class="kpi-label" data-key="kpi_product">أفضل منتج</span>
+          <div class="kpi-icon-wrap teal">
+            <span class="material-symbols-outlined text-[18px] no-mirror">analytics</span>
+          </div>
+        </div>
+        <span id="kpi-product" class="kpi-value text-[18px] leading-tight" style="color:#0891b2">—</span>
+        <div class="kpi-footer">
+          <span class="kpi-subtitle" data-key="kpi_best_seller">الأكثر مبيعاً</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Charts grid -->
+  <div class="max-w-7xl mx-auto px-container-margin pb-lg">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-lg">
+
+      <!-- Category bar (3 cols) -->
+      <div class="lg:col-span-3 retail-card p-lg">
+        <h3 class="text-headline-sm font-headline-sm text-on-surface mb-md" data-key="chart_cat_title">المبيعات حسب الفئة</h3>
+        <div id="chart-category" class="chart-container"></div>
+      </div>
+
+      <!-- Region donut (2 cols) -->
+      <div class="lg:col-span-2 retail-card p-lg">
+        <h3 class="text-headline-sm font-headline-sm text-on-surface mb-md" data-key="chart_reg_title">المبيعات حسب المنطقة</h3>
+        <div id="chart-region" class="chart-container"></div>
+      </div>
+
+      <!-- Monthly trend (full width) -->
+      <div class="lg:col-span-5 retail-card p-lg">
+        <h3 class="text-headline-sm font-headline-sm text-on-surface mb-md" data-key="chart_trend_title">اتجاه المبيعات الشهري</h3>
+        <div id="chart-trend" class="chart-container"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Top Products -->
+  <div class="max-w-7xl mx-auto px-container-margin pb-2xl">
+    <div class="retail-card p-lg">
+      <div class="flex items-center justify-between mb-md">
+        <h3 class="text-headline-sm font-headline-sm text-on-surface" data-key="products_title">أفضل المنتجات</h3>
+        <span class="material-symbols-outlined text-on-surface-variant no-mirror">leaderboard</span>
+      </div>
+      <div id="top-products-list" class="space-y-xs">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+</div><!-- /section-dashboard -->
+
+
+<!-- ╔═══════════════════════════════════════════════════╗
+     ║  UPLOAD DATA                                      ║
+     ╚═══════════════════════════════════════════════════╝ -->
+<div id="section-upload" class="app-section" style="position:relative;overflow:hidden;min-height:calc(100vh - 60px);">
+  <canvas id="upload-webgl-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none;"></canvas>
+  <div style="position:relative;z-index:1;">
+  <div class="max-w-3xl mx-auto px-container-margin py-2xl">
+
+    <div class="mb-xl">
+      <h1 class="text-headline-lg font-headline-lg text-on-surface mb-sm" data-key="upload_title">رفع بيانات المبيعات</h1>
+      <p class="text-body-md font-body-md text-on-surface-variant" data-key="upload_subtitle">ارفع ملف CSV يحتوي على بيانات معاملاتك التجارية.</p>
+    </div>
+
+    <!-- Sample download -->
+    <div class="flex justify-end mb-sm">
+      <a href="/api/sample-csv" download
+         class="inline-flex items-center gap-1 text-label-md font-label-md text-primary hover:text-primary/80 hover:underline">
+        <span class="material-symbols-outlined text-[16px] no-mirror">download</span>
+        <span data-key="upload_sample">تحميل ملف نموذجي</span>
+      </a>
+    </div>
+
+    <!-- Drop zone -->
+    <div id="upload-zone" class="upload-zone mb-lg">
+      <span class="material-symbols-outlined text-[52px] text-outline mb-md no-mirror block">cloud_upload</span>
+      <p class="text-headline-sm font-headline-sm text-on-surface mb-xs" data-key="upload_drop">اسحب وأفلت ملف CSV هنا</p>
+      <p class="text-body-sm text-on-surface-variant" data-key="upload_or">أو اضغط للاختيار</p>
+      <input type="file" id="upload-file-input" accept=".csv" class="hidden"/>
+    </div>
+
+    <!-- Dynamic upload/analysis panel — fully managed by JS -->
+    <div id="upload-analysis-panel"></div>
+
+  </div>
+  </div><!-- /webgl-content-wrapper -->
+</div><!-- /section-upload -->
+
+
+
+
+<!-- ╔═══════════════════════════════════════════════════╗
+     ║  PREDICTION  (Stitch-design)                      ║
+     ╚═══════════════════════════════════════════════════╝ -->
+<div id="section-prediction" class="app-section">
+  <div class="max-w-[1440px] mx-auto px-container-margin py-xl">
+
+    <!-- Hero header -->
+    <header class="mb-2xl">
+      <div class="flex flex-wrap items-center gap-sm mb-md">
+        <span class="bg-primary/10 text-primary px-sm py-xs rounded-full text-label-sm inline-flex items-center gap-xs">
+          <span class="material-symbols-outlined text-[16px] no-mirror" style="font-variation-settings:'FILL' 1">psychology</span>
+          <span data-key="pred_badge_ml">مدعوم بتعلم الآلة</span>
+        </span>
+        <span class="inline-flex items-center gap-xs px-sm py-xs rounded-full text-label-sm border" style="background:rgba(5,150,105,0.08);color:#059669;border-color:rgba(5,150,105,0.25)">
+          <span class="w-2 h-2 rounded-full animate-pulse inline-block" style="background:#059669"></span>
+          <span data-key="pred_badge_ready">النموذج جاهز</span>
+        </span>
+      </div>
+      <h1 class="text-headline-xl font-headline-xl text-on-surface mb-sm" data-key="pred_page_title">توقع المبيعات بالذكاء الاصطناعي</h1>
+      <p class="text-body-lg font-body-lg text-on-surface-variant max-w-3xl leading-relaxed" data-key="pred_page_desc">أدخل تفاصيل الطلب للحصول على تقدير ذكي لقيمة المبيعات باستخدام نموذج تعلم آلي.</p>
+    </header>
+
+    <!-- Main grid: Form + Result -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-xl mb-xl">
+
+      <!-- Form (7 cols) -->
+      <section class="lg:col-span-7">
+        <div class="bg-white rounded-xl p-xl prediction-card">
+          <div class="flex items-center gap-sm mb-xl pb-md border-b border-outline-variant/20">
+            <span class="bg-primary/10 p-xs rounded-lg text-primary">
+              <span class="material-symbols-outlined no-mirror" style="font-variation-settings:'FILL' 1">edit_note</span>
+            </span>
+            <h2 class="text-headline-md font-headline-md" data-key="pred_form_title">بيانات التنبؤ</h2>
+          </div>
+
+          <div class="space-y-lg">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-lg">
+
+              <!-- Categories -->
+              <div class="space-y-xs">
+                <p class="text-label-md font-bold text-on-surface-variant" data-key="pred_lbl_categories">الفئات</p>
+                <div class="p-sm border border-outline-variant rounded-xl bg-surface-container-lowest">
+                  <div id="pred-cat-grid" class="grid grid-cols-2 gap-xs"></div>
+                </div>
+              </div>
+
+              <!-- Regions -->
+              <div class="space-y-xs">
+                <p class="text-label-md font-bold text-on-surface-variant" data-key="pred_lbl_regions">المناطق</p>
+                <div class="p-sm border border-outline-variant rounded-xl bg-surface-container-lowest">
+                  <div id="pred-reg-grid" class="grid grid-cols-2 gap-xs"></div>
+                </div>
+              </div>
+
+              <!-- Customer Segments -->
+              <div class="space-y-xs">
+                <p class="text-label-md font-bold text-on-surface-variant" data-key="pred_lbl_segments">شرائح العملاء</p>
+                <div class="p-sm border border-outline-variant rounded-xl bg-surface-container-lowest">
+                  <div id="pred-seg-grid" class="grid grid-cols-2 gap-xs"></div>
+                </div>
+              </div>
+
+              <!-- Payment Methods -->
+              <div class="space-y-xs">
+                <p class="text-label-md font-bold text-on-surface-variant" data-key="pred_lbl_payments">طرق الدفع</p>
+                <div class="p-sm border border-outline-variant rounded-xl bg-surface-container-lowest">
+                  <div id="pred-pay-grid" class="grid grid-cols-2 gap-xs"></div>
+                </div>
+              </div>
+
+              <!-- Price -->
+              <div class="form-group">
+                <label for="input-price" data-key="lbl_price">السعر ($)</label>
+                <input id="input-price" type="number" min="0.01" step="0.01" value="299.99"/>
+              </div>
+
+              <!-- Quantity -->
+              <div class="form-group">
+                <label for="input-quantity" data-key="lbl_qty">الكمية</label>
+                <input id="input-quantity" type="number" min="1" step="1" value="1"/>
+              </div>
+
+            </div>
+
+            <!-- Discount Slider -->
+            <div class="space-y-xs">
+              <div class="flex justify-between items-center">
+                <label class="text-label-md font-bold text-on-surface-variant" data-key="lbl_discount">الخصم</label>
+                <span class="text-primary font-bold text-label-md bg-primary/10 px-xs py-[2px] rounded" id="discount-val">10%</span>
+              </div>
+              <input type="range" id="input-discount" class="w-full accent-primary cursor-pointer pred-range"
+                min="0.05" max="0.90" step="0.05" value="0.10"
+                oninput="document.getElementById('discount-val').textContent=Math.round(this.value*100)+'%'"/>
+              <div class="flex justify-between text-[10px] text-outline px-xs">
+                <span>5%</span><span>45%</span><span>90%</span>
+              </div>
+            </div>
+
+            <!-- Predict Button -->
+            <button id="analyze-btn" type="button" onclick="runPrediction(event)"
+              class="w-full bg-primary text-on-primary rounded-xl shadow-lg hover:bg-primary/90 transition-all active:scale-[0.98] inline-flex items-center justify-center gap-md text-headline-sm font-headline-sm"
+              style="height:56px">
+              <span class="material-symbols-outlined no-mirror" style="font-variation-settings:'FILL' 1">bolt</span>
+              <span id="analyze-btn-label" data-key="pred_btn_analyze">تنبؤ بالمبيعات</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Result (5 cols) -->
+      <aside class="lg:col-span-5">
+        <div class="bg-white rounded-xl p-xl prediction-card h-full flex flex-col">
+          <div class="flex items-center justify-between mb-xl">
+            <div class="flex items-center gap-sm">
+              <span class="p-xs rounded-lg" style="background:rgba(5,150,105,0.1);color:#059669">
+                <span class="material-symbols-outlined no-mirror" style="font-variation-settings:'FILL' 1">insights</span>
+              </span>
+              <h2 class="text-headline-md font-headline-md" data-key="pred_result_title">نتيجة التنبؤ</h2>
+            </div>
+            <span id="pred-accuracy-badge" class="text-label-sm text-outline bg-surface-container-low px-sm py-[3px] rounded-lg" data-key="pred_accuracy">دقة: —</span>
+          </div>
+
+          <div class="flex-1 grid grid-cols-2 gap-lg items-center py-md">
+            <div class="flex flex-col items-center justify-center text-center space-y-sm">
+              <div class="relative">
+                <div class="absolute -inset-3 bg-primary/5 rounded-full animate-pulse pointer-events-none"></div>
+                <div id="result-display" class="text-[40px] font-bold text-primary tracking-tight leading-none relative z-10 transition-transform duration-300">—</div>
+              </div>
+              <p class="text-body-sm text-on-surface-variant leading-relaxed max-w-[140px]" id="pred-result-hint" data-key="pred_result_desc">أدخل التفاصيل وانقر على زر التنبؤ</p>
+              <div class="grid grid-cols-2 gap-2 w-full text-center text-[10px] pt-sm border-t border-outline-variant/10">
+                <div class="flex flex-col items-center gap-xs"><span class="font-bold text-on-surface text-[11px]">RMSE</span><span id="pred-rmse" class="text-outline">—</span></div>
+                <div class="flex flex-col items-center gap-xs"><span class="font-bold text-on-surface text-[11px]">R²</span><span id="pred-r2" class="text-outline">—</span></div>
+              </div>
+            </div>
+            <div class="flex flex-col items-center">
+              <div id="confidence-chart" class="w-full" style="min-height:180px"></div>
+              <span class="text-label-sm text-on-surface-variant text-center -mt-2" data-key="pred_conf_label">توزيع الثقة</span>
+            </div>
+          </div>
+
+          <div class="pt-md border-t border-outline-variant/10 mt-auto">
+            <div class="flex justify-between items-center bg-surface p-sm rounded-lg">
+              <span class="text-label-sm text-on-surface-variant" data-key="pred_status_label">الحالة:</span>
+              <span class="text-label-sm px-xs py-[2px] rounded" style="background:rgba(5,150,105,0.1);color:#059669" data-key="pred_status_ready">النموذج جاهز</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- AI Insights -->
+    <section class="mb-2xl">
+      <h3 class="text-headline-md font-headline-md mb-xl" data-key="pred_insights_title">رؤى الذكاء الاصطناعي</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+        <div class="bg-white p-lg rounded-xl prediction-card hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-md">
+            <span class="material-symbols-outlined no-mirror" style="font-variation-settings:'FILL' 1">payments</span>
+          </div>
+          <h4 class="text-headline-sm font-headline-sm mb-xs text-on-surface" data-key="pred_ins1_title">تأثير السعر</h4>
+          <p id="pred-ins-desc-0" class="text-body-sm text-on-surface-variant leading-relaxed">—</p>
+        </div>
+        <div class="bg-white p-lg rounded-xl prediction-card hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-md">
+            <span class="material-symbols-outlined no-mirror" style="font-variation-settings:'FILL' 1">groups</span>
+          </div>
+          <h4 class="text-headline-sm font-headline-sm mb-xs text-on-surface" data-key="pred_ins2_title">سلوك العملاء</h4>
+          <p id="pred-ins-desc-1" class="text-body-sm text-on-surface-variant leading-relaxed">—</p>
+        </div>
+        <div class="bg-white p-lg rounded-xl prediction-card hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-md">
+            <span class="material-symbols-outlined no-mirror" style="font-variation-settings:'FILL' 1">trending_up</span>
+          </div>
+          <h4 class="text-headline-sm font-headline-sm mb-xs text-on-surface" data-key="pred_ins3_title">توقع الطلب</h4>
+          <p id="pred-ins-desc-2" class="text-body-sm text-on-surface-variant leading-relaxed">—</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Market Trends -->
+    <section class="mb-2xl">
+      <div class="flex items-center justify-between mb-xl">
+        <h3 class="text-headline-md font-headline-md" data-key="pred_trends_title">تحليلات اتجاهات السوق</h3>
+        <div class="flex gap-sm">
+          <button class="px-sm py-xs bg-primary/10 text-primary border border-primary/20 rounded-lg text-label-sm font-bold" data-key="pred_filter_monthly">شهري</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-xl">
+        <div class="lg:col-span-2 bg-white rounded-xl p-lg prediction-card">
+          <div class="flex items-center gap-sm mb-lg">
+            <span class="material-symbols-outlined text-primary no-mirror" style="font-variation-settings:'FILL' 1">analytics</span>
+            <h4 class="text-headline-sm font-headline-sm" data-key="pred_sensitivity_title">تحليل حساسية السعر</h4>
+          </div>
+          <div id="price-sensitivity-chart" style="height:300px"></div>
+          <p class="mt-md text-[12px] text-on-surface-variant flex items-center gap-xs">
+            <span class="material-symbols-outlined text-[14px] no-mirror">info</span>
+            <span data-key="pred_sensitivity_note">يوضح المخطط العلاقة العكسية بين السعر وحجم المبيعات المتوقع.</span>
+          </p>
+        </div>
+        <div class="bg-white rounded-xl p-lg prediction-card flex flex-col">
+          <div class="flex items-center gap-sm mb-lg">
+            <span class="material-symbols-outlined text-primary no-mirror" style="font-variation-settings:'FILL' 1">pie_chart</span>
+            <h4 class="text-headline-sm font-headline-sm" data-key="pred_regional_title">مساهمة المناطق</h4>
+          </div>
+          <div id="regional-distribution-chart" class="flex-1" style="min-height:200px"></div>
+          <div id="pred-region-bars" class="mt-md space-y-sm"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="py-2xl border-t border-outline-variant/20">
+      <h3 class="text-headline-md font-headline-md text-center mb-2xl" data-key="pred_how_title">كيف يعمل النظام؟</h3>
+      <div class="relative">
+        <div class="hidden md:block absolute top-7 inset-x-0 h-px bg-outline-variant/20" style="z-index:0"></div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-xl" style="position:relative;z-index:1">
+          <div class="flex flex-col items-center text-center">
+            <div class="w-14 h-14 bg-white border-4 border-surface-container rounded-full flex items-center justify-center mb-md shadow-sm">
+              <span class="text-headline-sm font-headline-sm text-primary font-bold">01</span>
+            </div>
+            <h5 class="text-headline-sm font-headline-sm mb-xs" data-key="pred_how_step1_title">إدخال التفاصيل</h5>
+            <p class="text-body-sm text-on-surface-variant" data-key="pred_how_step1_desc">قم بتعبئة بيانات المنتج والمنطقة وشريحة العملاء بدقة.</p>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="w-14 h-14 bg-white border-4 border-surface-container rounded-full flex items-center justify-center mb-md shadow-sm">
+              <span class="text-headline-sm font-headline-sm text-primary font-bold">02</span>
+            </div>
+            <h5 class="text-headline-sm font-headline-sm mb-xs" data-key="pred_how_step2_title">إرسال للتحليل</h5>
+            <p class="text-body-sm text-on-surface-variant" data-key="pred_how_step2_desc">يتم تحليل المدخلات عبر نموذج Random Forest في ثوانٍ.</p>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="w-14 h-14 bg-white border-4 border-surface-container rounded-full flex items-center justify-center mb-md shadow-sm">
+              <span class="text-headline-sm font-headline-sm text-primary font-bold">03</span>
+            </div>
+            <h5 class="text-headline-sm font-headline-sm mb-xs" data-key="pred_how_step3_title">عرض النتيجة</h5>
+            <p class="text-body-sm text-on-surface-variant" data-key="pred_how_step3_desc">احصل على تقدير مالي دقيق مع مؤشر الثقة.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div><!-- /section-prediction -->
+
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  AI DATA AGENT  —  Chatbot powered by OpenAI file_search  ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<div id="section-agent" class="app-section" style="position:relative;overflow:hidden;min-height:calc(100vh - 60px);">
+  <canvas id="agent-webgl-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none;"></canvas>
+  <div style="position:relative;z-index:1;">
+
+  <!-- Page header -->
+  <section class="py-xl">
+    <div class="max-w-4xl mx-auto px-container-margin text-center">
+      <div class="inline-flex items-center bg-primary/10 text-primary px-md py-base rounded-full mb-md">
+        <span class="material-symbols-outlined text-[18px] no-mirror fill">smart_toy</span>
+      </div>
+      <h2 class="text-headline-lg font-headline-lg text-on-surface mb-sm" data-key="agent_title">وكيل البيانات الذكي</h2>
+      <p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl mx-auto" data-key="agent_desc">اسأل عن بياناتك بلغتك الطبيعية — سيقرأ الوكيل ملف CSV الذي رفعته ويجيب على أسئلتك.</p>
+    </div>
+  </section>
+
+  <!-- Chat area -->
+  <div class="max-w-4xl mx-auto px-container-margin pb-2xl">
+
+    <!-- No dataset notice (shown when no CSV uploaded yet) -->
+    <div id="agent-no-dataset" class="hidden">
+      <div class="retail-card p-2xl text-center">
+        <span class="material-symbols-outlined text-[48px] text-outline mb-md block no-mirror">upload_file</span>
+        <p class="text-body-lg text-on-surface-variant" data-key="agent_no_dataset">ارفع ملف CSV أولًا حتى تستطيع التحدث مع بياناتك.</p>
+      </div>
+    </div>
+
+    <!-- Chat container (shown when CSV is uploaded) -->
+    <div id="agent-chat-container" class="hidden">
+
+      <!-- New CSV notice (shown briefly when dataset changes) -->
+      <div id="agent-new-csv-notice" class="hidden mb-md">
+        <div class="bg-tertiary/10 border border-tertiary/20 rounded-xl px-md py-sm flex items-center gap-sm">
+          <span class="material-symbols-outlined text-tertiary text-[18px] no-mirror">info</span>
+          <span class="text-body-sm text-tertiary" data-key="agent_new_csv_notice">تم رفع ملف CSV جديد. ابدأ محادثة جديدة حول الملف الأخير.</span>
+        </div>
+      </div>
+
+      <!-- Suggested questions -->
+      <div id="agent-suggested" class="mb-md flex flex-wrap gap-sm"></div>
+
+      <!-- Messages area -->
+      <div id="agent-messages"
+           class="retail-card p-md mb-md space-y-md overflow-y-auto"
+           style="min-height:320px; max-height:520px;">
+      </div>
+
+      <!-- Loading / typing indicator -->
+      <div id="agent-loading" class="hidden flex items-center gap-sm px-md py-sm">
+        <div class="flex gap-xs">
+          <span class="w-2 h-2 rounded-full bg-primary animate-bounce" style="animation-delay:0ms"></span>
+          <span class="w-2 h-2 rounded-full bg-primary animate-bounce" style="animation-delay:150ms"></span>
+          <span class="w-2 h-2 rounded-full bg-primary animate-bounce" style="animation-delay:300ms"></span>
+        </div>
+        <span class="text-body-sm text-on-surface-variant" data-key="agent_thinking">الوكيل يفكر…</span>
+      </div>
+
+      <!-- Input row -->
+      <div class="flex gap-sm">
+        <input
+          id="agent-input"
+          type="text"
+          maxlength="1000"
+          class="flex-1 border border-outline-variant rounded-xl px-md py-sm text-body-md bg-surface focus:outline-none focus:ring-2 focus:ring-primary/30"
+          data-key-placeholder="agent_placeholder"
+          placeholder="اسأل عن بياناتك…"
+          onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); sendAgentMessage(); }"
+          dir="auto"
+        />
+        <button
+          onclick="sendAgentMessage()"
+          class="bg-primary text-on-primary px-lg py-sm rounded-xl text-label-md font-label-md hover:opacity-90 active:scale-95 transition-all flex items-center gap-xs shrink-0">
+          <span class="material-symbols-outlined text-[18px] no-mirror">send</span>
+          <span data-key="agent_send">إرسال</span>
+        </button>
+      </div>
+
+      <!-- Clear chat link -->
+      <div class="text-end mt-sm">
+        <button onclick="clearAgentChat()" class="text-label-sm text-outline hover:text-primary transition-colors" data-key="agent_clear">مسح المحادثة</button>
+      </div>
+
+    </div><!-- /agent-chat-container -->
+
+  </div>
+  </div><!-- /webgl-content-wrapper -->
+</div><!-- /section-agent -->
+
+
+</main><!-- /main -->
+
+<!-- Toast container -->
+<div id="toast-container" class="toast-container"></div>
+
+<!-- App JS -->
+<script src="/static/js/app.js"></script>
+
+<!-- WebGL shader backgrounds for Upload and Agent sections (raw WebGL — no dependencies) -->
+<script>
+(function () {
+  var VERT = [
+    'attribute vec2 a_pos;',
+    'void main(){gl_Position=vec4(a_pos,0.0,1.0);}'
+  ].join('\n');
+
+  var FRAG = [
+    'precision highp float;',
+    'uniform vec2  u_res;',
+    'uniform float u_time;',
+    'void main(){',
+    '  vec2 p=(gl_FragCoord.xy*2.0-u_res)/min(u_res.x,u_res.y);',
+    '  float t=u_time;',
+    '  float i=0.0;',
+    '  float w1=p.y+sin(p.x*1.4+t*0.6)*0.45+sin(p.x*0.5-t*0.2)*0.15;',
+    '  i+=0.015/max(abs(w1),0.003)+0.06/(abs(w1)*12.0+1.0);',
+    '  float w2=p.y+sin(p.x*1.1-t*0.5+1.2)*0.40+cos(p.x*0.9+t*0.3)*0.12;',
+    '  i+=0.015/max(abs(w2),0.003)+0.06/(abs(w2)*12.0+1.0);',
+    '  float w3=p.y+sin(p.x*0.8+t*0.7+2.5)*0.50+sin(p.x*1.3-t*0.4)*0.10;',
+    '  i+=0.012/max(abs(w3),0.003)+0.045/(abs(w3)*12.0+1.0);',
+    '  float w4=p.y+sin(p.x*1.7-t*0.4+4.1)*0.35+cos(p.x*0.6+t*0.5)*0.18;',
+    '  i+=0.011/max(abs(w4),0.003)+0.038/(abs(w4)*12.0+1.0);',
+    '  float w5=p.y+sin(p.x*1.25+t*0.35+3.3)*0.38;',
+    '  i+=0.008/max(abs(w5),0.003)+0.025/(abs(w5)*12.0+1.0);',
+    '  float v=i/(i+0.65);',
+    '  vec3 c=mix(vec3(1.0),vec3(0.0,0.290,0.776),v);',
+    '  gl_FragColor=vec4(c,1.0);',
+    '}'
+  ].join('\n');
+
+  function compile(gl, type, src) {
+    var s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+
+  function initWebGLBg(canvasId, sectionId) {
+    var canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+
+    var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) return;
+
+    var prog = gl.createProgram();
+    gl.attachShader(prog, compile(gl, gl.VERTEX_SHADER,   VERT));
+    gl.attachShader(prog, compile(gl, gl.FRAGMENT_SHADER, FRAG));
+    gl.linkProgram(prog);
+    gl.useProgram(prog);
+
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+      -1,-1,  1,-1,  -1,1,
+       1,-1,  -1,1,   1,1
+    ]), gl.STATIC_DRAW);
+
+    var posLoc = gl.getAttribLocation(prog, 'a_pos');
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+    var uRes  = gl.getUniformLocation(prog, 'u_res');
+    var uTime = gl.getUniformLocation(prog, 'u_time');
+
+    var time = 0, lastW = 0, lastH = 0, wasActive = false;
+    var dpr = window.devicePixelRatio || 1;
+
+    function syncSize() {
+      var w = canvas.offsetWidth, h = canvas.offsetHeight;
+      if (w > 0 && h > 0 && (w !== lastW || h !== lastH)) {
+        lastW = w; lastH = h;
+        canvas.width  = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        gl.viewport(0, 0, canvas.width, canvas.height);
+        gl.uniform2f(uRes, canvas.width, canvas.height);
+      }
+    }
+    window.addEventListener('resize', function () { if (wasActive) syncSize(); });
+
+    (function animate() {
+      requestAnimationFrame(animate);
+      var section   = document.getElementById(sectionId);
+      var nowActive = section && section.classList.contains('active');
+      if (nowActive && !wasActive) syncSize();
+      wasActive = nowActive;
+      if (!nowActive) return;
+      time += 0.01;
+      gl.uniform1f(uTime, time);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+    })();
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initWebGLBg('upload-webgl-canvas', 'section-upload');
+    initWebGLBg('agent-webgl-canvas',  'section-agent');
+  });
+})();
+</script>
+
+</body>
+</html>

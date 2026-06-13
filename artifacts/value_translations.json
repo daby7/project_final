@@ -1,0 +1,217 @@
+{
+  "Apple Pay": {
+    "en": "Apple Pay",
+    "ar": "Apple Pay",
+    "he": "Apple Pay"
+  },
+  "Bank Transfer": {
+    "en": "Bank Transfer",
+    "ar": "تحويل بنكي",
+    "he": "העברה בנקאית"
+  },
+  "Beauty": {
+    "en": "Beauty",
+    "ar": "الجمال",
+    "he": "טיפוח"
+  },
+  "Beer Sheva": {
+    "en": "Beer Sheva",
+    "ar": "بئر السبع",
+    "he": "באר שבע"
+  },
+  "Bluetooth Speaker": {
+    "en": "Bluetooth Speaker",
+    "ar": "سماعة بلوتوث",
+    "he": "רמקול בלוטות'"
+  },
+  "Body Lotion": {
+    "en": "Body Lotion",
+    "ar": "لوشن للجسم",
+    "he": "קרם גוף"
+  },
+  "Bookshelf": {
+    "en": "Bookshelf",
+    "ar": "مكتبة",
+    "he": "כוננית ספרים"
+  },
+  "Cap": {
+    "en": "Cap",
+    "ar": "قبعة",
+    "he": "כובע"
+  },
+  "Cash": {
+    "en": "Cash",
+    "ar": "نقدًا",
+    "he": "מזומן"
+  },
+  "Chocolate Box": {
+    "en": "Chocolate Box",
+    "ar": "علبة شوكولاتة",
+    "he": "קופסת שוקולד"
+  },
+  "Clothing": {
+    "en": "Clothing",
+    "ar": "الملابس",
+    "he": "ביגוד"
+  },
+  "Coffee Beans": {
+    "en": "Coffee Beans",
+    "ar": "حبوب قهوة",
+    "he": "פולי קפה"
+  },
+  "Corporate": {
+    "en": "Corporate",
+    "ar": "شركات",
+    "he": "עסקי"
+  },
+  "Credit Card": {
+    "en": "Credit Card",
+    "ar": "بطاقة ائتمان",
+    "he": "כרטיס אשראי"
+  },
+  "Desk Lamp": {
+    "en": "Desk Lamp",
+    "ar": "مصباح مكتب",
+    "he": "מנורת שולחן"
+  },
+  "Electronics": {
+    "en": "Electronics",
+    "ar": "الإلكترونيات",
+    "he": "אלקטרוניקה"
+  },
+  "Face Cream": {
+    "en": "Face Cream",
+    "ar": "كريم وجה",
+    "he": "קרם פנים"
+  },
+  "Furniture": {
+    "en": "Furniture",
+    "ar": "الأثاث",
+    "he": "ריהוט"
+  },
+  "Groceries": {
+    "en": "Groceries",
+    "ar": "البقالة",
+    "he": "מצרכים"
+  },
+  "Haifa": {
+    "en": "Haifa",
+    "ar": "حيفا",
+    "he": "חיפה"
+  },
+  "Jacket": {
+    "en": "Jacket",
+    "ar": "جاكيت",
+    "he": "ז'קט"
+  },
+  "Jeans": {
+    "en": "Jeans",
+    "ar": "جينز",
+    "he": "ג'ינס"
+  },
+  "Jerusalem": {
+    "en": "Jerusalem",
+    "ar": "القدس",
+    "he": "ירושלים"
+  },
+  "Keyboard": {
+    "en": "Keyboard",
+    "ar": "لوحة مفاتيح",
+    "he": "מקלדת"
+  },
+  "Laptop Stand": {
+    "en": "Laptop Stand",
+    "ar": "حامل لابتوب",
+    "he": "מעמד למחשב נייד"
+  },
+  "Nazareth": {
+    "en": "Nazareth",
+    "ar": "الناصرة",
+    "he": "נצרת"
+  },
+  "Office Chair": {
+    "en": "Office Chair",
+    "ar": "كرسي مكتب",
+    "he": "כיסא משרדי"
+  },
+  "Olive Oil": {
+    "en": "Olive Oil",
+    "ar": "زيت زيتون",
+    "he": "שמן זית"
+  },
+  "Pasta Pack": {
+    "en": "Pasta Pack",
+    "ar": "عبوة معكرونة",
+    "he": "חבילת פסטה"
+  },
+  "PayPal": {
+    "en": "PayPal",
+    "ar": "باي بال",
+    "he": "PayPal"
+  },
+  "Perfume": {
+    "en": "Perfume",
+    "ar": "عطر",
+    "he": "בושם"
+  },
+  "Retail": {
+    "en": "Retail",
+    "ar": "تجزئة",
+    "he": "קמעונאות"
+  },
+  "Shampoo": {
+    "en": "Shampoo",
+    "ar": "شامبو",
+    "he": "שמפו"
+  },
+  "Sneakers": {
+    "en": "Sneakers",
+    "ar": "حذاء رياضي",
+    "he": "נעלי ספורט"
+  },
+  "Storage Cabinet": {
+    "en": "Storage Cabinet",
+    "ar": "خزانة تخزين",
+    "he": "ארון אחסון"
+  },
+  "Student": {
+    "en": "Student",
+    "ar": "طالب",
+    "he": "סטודנט"
+  },
+  "Study Desk": {
+    "en": "Study Desk",
+    "ar": "مكتب دراسة",
+    "he": "שולחן לימוד"
+  },
+  "T-Shirt": {
+    "en": "T-Shirt",
+    "ar": "قميص",
+    "he": "חולצה"
+  },
+  "Tel Aviv": {
+    "en": "Tel Aviv",
+    "ar": "تل أبيب",
+    "he": "תל אביב"
+  },
+  "USB-C Hub": {
+    "en": "USB-C Hub",
+    "ar": "موزع USB-C",
+    "he": "מפצל USB-C"
+  },
+  "VIP": {
+    "en": "VIP",
+    "ar": "مميز خاص",
+    "he": "VIP"
+  },
+  "Wireless Mouse": {
+    "en": "Wireless Mouse",
+    "ar": "فأرة لاسلكية",
+    "he": "עכבר אלחוטי"
+  },
+  "Ramallah": {
+    "en": "Ramallah",
+    "ar": "رام الله",
+    "he": "רמאללה"
+  }
+}

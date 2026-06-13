@@ -1,0 +1,412 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   RetailSense AI · style.css  —  Landing + Dashboard (merged)
+───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Base ────────────────────────────────────────────────────────────────── */
+body {
+  font-family: 'Inter', 'Noto Kufi Arabic', sans-serif;
+  background-color: #faf8ff;
+}
+
+/* ── Material Icons ─────────────────────────────────────────────────────── */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+}
+.material-symbols-outlined.fill {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+/* .no-mirror prevents flipping in RTL */
+[dir="rtl"] .material-symbols-outlined:not(.no-mirror) {
+  transform: scaleX(-1);
+}
+
+/* .ltr-num keeps numbers/currency visually LTR inside RTL layouts */
+.ltr-num {
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+/* ── Glass nav (landing hero) ───────────────────────────────────────────── */
+.glass-nav {
+  background: rgba(250, 248, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(195, 198, 215, 0.3);
+}
+
+/* ── App header ─────────────────────────────────────────────────────────── */
+#app-header {
+  background: rgba(250, 248, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(195, 198, 215, 0.35);
+  transition: box-shadow 0.2s;
+}
+
+/* ── Nav tab buttons ────────────────────────────────────────────────────── */
+.nav-btn {
+  font-size: 0.845rem;
+  font-weight: 500;
+  color: #434655;
+  padding: 0.375rem 0.6rem;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+  line-height: 1.25rem;
+}
+.nav-btn:hover { color: #004ac6; }
+.nav-btn.active {
+  color: #004ac6;
+  border-bottom-color: #004ac6;
+  font-weight: 600;
+}
+
+/* ── Cards ──────────────────────────────────────────────────────────────── */
+.retail-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0px 2px 12px rgba(15, 23, 42, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.retail-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 10px 28px rgba(15, 23, 42, 0.1);
+}
+.card-shadow { box-shadow: 0px 2px 12px rgba(15, 23, 42, 0.06); }
+
+/* ── Hero gradients ─────────────────────────────────────────────────────── */
+.hero-gradient {
+  background: radial-gradient(circle at 0% 0%, #dbe1ff 0%, transparent 50%),
+              radial-gradient(circle at 100% 100%, #dae2fd 0%, transparent 50%);
+}
+.hero-gradient-dark {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #004ac6 100%);
+}
+
+/* ── Glass panel (on dark hero) ─────────────────────────────────────────── */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* ── SPA section show/hide ──────────────────────────────────────────────── */
+.app-section { display: none; }
+.app-section.active { display: block; }
+
+/* ── Status dot ─────────────────────────────────────────────────────────── */
+.status-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: #94a3b8;
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+.status-dot.done  { background: #059669; }
+.status-dot.error { background: #dc2626; }
+
+/* ── Language dropdown ──────────────────────────────────────────────────── */
+.dropdown-menu {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 0.14s ease, transform 0.14s ease;
+}
+.dropdown-menu.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* ── Loading spinner ────────────────────────────────────────────────────── */
+.spinner {
+  display: inline-block;
+  width: 18px; height: 18px;
+  border: 2px solid rgba(0, 74, 198, 0.25);
+  border-top-color: #004ac6;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+.spinner.white {
+  border-color: rgba(255,255,255,0.3);
+  border-top-color: #fff;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Progress bar (indeterminate) ───────────────────────────────────────── */
+.progress-bar {
+  height: 3px; background: #e1e2ed;
+  border-radius: 9999px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #004ac6, #6366f1);
+  border-radius: 9999px;
+  animation: indeterminate 1.8s ease-in-out infinite;
+  transform-origin: left;
+  width: 35%;
+}
+@keyframes indeterminate {
+  0%   { transform: translateX(-150%); }
+  100% { transform: translateX(450%); }
+}
+
+/* ── Upload zone ────────────────────────────────────────────────────────── */
+.upload-zone {
+  border: 2px dashed #c3c6d7;
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  user-select: none;
+}
+.upload-zone:hover, .upload-zone.drag-over {
+  border-color: #004ac6;
+  background: #f0f3ff;
+}
+
+/* ── Prediction result ──────────────────────────────────────────────────── */
+.prediction-result {
+  background: linear-gradient(145deg, #004ac6, #4f46e5);
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 6px 28px rgba(0, 74, 198, 0.25);
+}
+
+/* ── Form group ─────────────────────────────────────────────────────────── */
+.form-group { display: flex; flex-direction: column; gap: 0.3rem; }
+.form-group label {
+  font-size: 0.78rem; font-weight: 600;
+  color: #434655;
+}
+.form-group input,
+.form-group select {
+  padding: 0.52rem 0.8rem;
+  border: 1px solid #c3c6d7;
+  border-radius: 8px;
+  font-size: 0.875rem; color: #191b23;
+  background: #fff; width: 100%;
+  transition: border-color 0.12s, box-shadow 0.12s;
+  font-family: inherit;
+}
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #004ac6;
+  box-shadow: 0 0 0 3px rgba(0, 74, 198, 0.12);
+}
+
+/* ── Report content ─────────────────────────────────────────────────────── */
+.report-content {
+  white-space: pre-wrap;
+  font-family: 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  max-height: 220px;
+  overflow-y: auto;
+  background: #f3f3fe;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  color: #191b23;
+  border: 1px solid #e1e2ed;
+}
+
+/* ── Toast ──────────────────────────────────────────────────────────────── */
+.toast-container {
+  position: fixed; bottom: 1.25rem; inset-inline-end: 1.25rem;
+  display: flex; flex-direction: column; gap: 0.5rem;
+  z-index: 9999; pointer-events: none;
+}
+.toast {
+  background: #1e293b; color: #fff;
+  border-radius: 8px; padding: 0.75rem 1rem;
+  font-size: 0.875rem; max-width: 320px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+  pointer-events: auto;
+  animation: toastIn 0.18s ease;
+}
+.toast.success { background: #059669; }
+.toast.error   { background: #dc2626; }
+.toast.info    { background: #0284c7; }
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Chart containers ───────────────────────────────────────────────────── */
+.chart-container { min-height: 280px; width: 100%; }
+
+/* ── KPI card ───────────────────────────────────────────────────────────── */
+.kpi-card {
+  border-radius: 14px;
+  padding: 1rem 1.1rem 0.9rem;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(15,23,42,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  border: 1.5px solid #e8e9f3;
+  border-top: 3px solid #e1e2ed;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  pointer-events: none;
+  border-radius: 13px;
+}
+.kpi-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(15,23,42,0.13);
+}
+.kpi-card.primary:hover  { border-color: #004ac6; box-shadow: 0 8px 28px rgba(0,74,198,0.15); }
+.kpi-card.success:hover  { border-color: #059669; box-shadow: 0 8px 28px rgba(5,150,105,0.15); }
+.kpi-card.purple:hover   { border-color: #7c3aed; box-shadow: 0 8px 28px rgba(124,58,237,0.15); }
+.kpi-card.orange:hover   { border-color: #d97706; box-shadow: 0 8px 28px rgba(217,119,6,0.15);  }
+.kpi-card.pink:hover     { border-color: #db2777; box-shadow: 0 8px 28px rgba(219,39,119,0.15); }
+.kpi-card.teal:hover     { border-color: #0891b2; box-shadow: 0 8px 28px rgba(8,145,178,0.15);  }
+
+.kpi-card.primary  { border-top-color: #004ac6; }
+.kpi-card.success  { border-top-color: #059669; }
+.kpi-card.purple   { border-top-color: #7c3aed; }
+.kpi-card.orange   { border-top-color: #d97706; }
+.kpi-card.pink     { border-top-color: #db2777; }
+.kpi-card.teal     { border-top-color: #0891b2; }
+
+/* header row inside card */
+.kpi-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+.kpi-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+.kpi-icon-wrap {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.18s ease;
+}
+.kpi-card:hover .kpi-icon-wrap { transform: scale(1.1); }
+
+.kpi-icon-wrap.primary { background: rgba(0,74,198,0.1);  color: #004ac6; }
+.kpi-icon-wrap.success { background: rgba(5,150,105,0.1); color: #059669; }
+.kpi-icon-wrap.purple  { background: rgba(124,58,237,0.1);color: #7c3aed; }
+.kpi-icon-wrap.orange  { background: rgba(217,119,6,0.1); color: #d97706; }
+.kpi-icon-wrap.pink    { background: rgba(219,39,119,0.1);color: #db2777; }
+.kpi-icon-wrap.teal    { background: rgba(8,145,178,0.1); color: #0891b2; }
+
+/* value */
+.kpi-value {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0.1rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  direction: ltr;
+}
+
+/* footer row */
+.kpi-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+  flex-wrap: wrap;
+}
+.kpi-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+.kpi-trend.up   { background: rgba(5,150,105,0.12); color: #059669; }
+.kpi-trend.down { background: rgba(186,26,26,0.1);  color: #ba1a1a; }
+
+.kpi-vs {
+  font-size: 11px;
+  color: #9ca3af;
+  white-space: nowrap;
+}
+.kpi-subtitle {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+/* ── LTR overrides for landing page layout ──────────────────────────────── */
+[dir="ltr"] .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+}
+[dir="ltr"] .lp-text-right { text-align: left; }
+[dir="ltr"] .lp-flex-row-reverse { flex-direction: row; }
+
+/* ── Prediction card ────────────────────────────────────────────────────── */
+.prediction-card {
+  box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.06);
+}
+.prediction-card:hover {
+  box-shadow: 0px 8px 32px rgba(15, 23, 42, 0.10);
+}
+
+/* ── Discount range slider ──────────────────────────────────────────────── */
+.pred-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: #e1e2ed;
+  border-radius: 9999px;
+  outline: none;
+  padding: 0;
+  border: none;
+}
+.pred-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #004ac6;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,74,198,0.35);
+}
+.pred-range::-moz-range-thumb {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #004ac6;
+  cursor: pointer;
+  border: none;
+}
+
+/* ── ApexCharts RTL ─────────────────────────────────────────────────────── */
+[dir="rtl"] .apexcharts-legend {
+  direction: rtl;
+}
+[dir="rtl"] .apexcharts-tooltip {
+  text-align: right;
+}

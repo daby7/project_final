@@ -1,0 +1,76 @@
+{
+    "dataset_name": "retail_sales",
+    "target_column": "sales",
+    "required_columns": [
+        "order_id",
+        "date",
+        "customer_id",
+        "customer_segment",
+        "product_id",
+        "product_name",
+        "category",
+        "region",
+        "payment_method",
+        "price",
+        "quantity",
+        "discount",
+        "sales"
+    ],
+    "schema": {
+        "order_id": "string",
+        "date": "date",
+        "customer_id": "string",
+        "customer_segment": "category",
+        "product_id": "string",
+        "product_name": "category",
+        "category": "category",
+        "region": "category",
+        "payment_method": "category",
+        "price": "float",
+        "quantity": "integer",
+        "discount": "float",
+        "sales": "float"
+    },
+    "allowed_values": {
+        "customer_segment": [
+            "Corporate",
+            "Retail",
+            "Student",
+            "VIP"
+        ],
+        "category": [
+            "Beauty",
+            "Clothing",
+            "Electronics",
+            "Furniture",
+            "Groceries"
+        ],
+        "region": [
+            "Beer Sheva",
+            "Haifa",
+            "Jerusalem",
+            "Nazareth",
+            "Ramallah",
+            "Tel Aviv"
+        ],
+        "payment_method": [
+            "Apple Pay",
+            "Bank Transfer",
+            "Cash",
+            "Credit Card",
+            "PayPal"
+        ]
+    },
+    "assumptions": [
+        "Each row represents one retail transaction.",
+        "The target column for prediction is sales.",
+        "Sales is calculated using price, quantity, and discount.",
+        "Rows with invalid dates, prices, quantities, discounts, or sales values are removed."
+    ],
+    "constraints": {
+        "price": "must be greater than 0",
+        "quantity": "must be greater than 0",
+        "discount": "must be between 0 and 1",
+        "sales": "must be greater than or equal to 0"
+    }
+}

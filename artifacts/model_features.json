@@ -1,0 +1,52 @@
+{
+    "target_column": "sales",
+    "feature_columns": [
+        "price",
+        "quantity",
+        "discount",
+        "month",
+        "day_of_week",
+        "is_weekend",
+        "customer_segment_Corporate",
+        "customer_segment_Retail",
+        "customer_segment_Student",
+        "customer_segment_VIP",
+        "category_Beauty",
+        "category_Clothing",
+        "category_Electronics",
+        "category_Furniture",
+        "category_Groceries",
+        "region_Beer Sheva",
+        "region_Haifa",
+        "region_Jerusalem",
+        "region_Nazareth",
+        "region_Ramallah",
+        "region_Tel Aviv",
+        "payment_method_Apple Pay",
+        "payment_method_Bank Transfer",
+        "payment_method_Cash",
+        "payment_method_Credit Card",
+        "payment_method_PayPal"
+    ],
+    "categorical_columns": [
+        "customer_segment",
+        "category",
+        "region",
+        "payment_method"
+    ],
+    "numeric_columns": [
+        "price",
+        "quantity",
+        "discount",
+        "month",
+        "day_of_week",
+        "is_weekend"
+    ],
+    "feature_engineering_steps": [
+        "Converted date column to datetime.",
+        "Created month feature.",
+        "Created day_of_week feature.",
+        "Created is_weekend feature.",
+        "One-hot encoded categorical columns."
+    ]
+}

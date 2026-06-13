@@ -1,0 +1,23 @@
+{
+    "best_model": "Random Forest Regressor",
+    "target_column": "sales",
+    "train_rows": 48,
+    "test_rows": 12,
+    "all_model_results": {
+        "Linear Regression": {
+            "mae": 147.1736,
+            "rmse": 297.4076,
+            "r2_score": 0.5946
+        },
+        "Random Forest Regressor": {
+            "mae": 123.9002,
+            "rmse": 296.2112,
+            "r2_score": 0.5979
+        }
+    },
+    "best_model_metrics": {
+        "mae": 123.9002,
+        "rmse": 296.2112,
+        "r2_score": 0.5979
+    }
+}
