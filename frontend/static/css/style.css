@@ -3,11 +3,8 @@
 ───────────────────────────────────────────────────────────────────────────── */
 
 /* ── Base ────────────────────────────────────────────────────────────────── */
-html, body {
-  overflow-x: hidden;
-  max-width: 100%;
-}
 body {
+  overflow-x: clip;
   font-family: 'Inter', 'Noto Kufi Arabic', sans-serif;
   background-color: #faf8ff;
 }
@@ -423,14 +420,12 @@ body {
   background: #fff;
   border-bottom: 1px solid rgba(0,0,0,0.08);
   box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-  z-index: 40;
-  display: flex;
+  z-index: 49;
   flex-direction: column;
-  transform: translateY(-110%);
-  transition: transform 0.25s ease;
+  display: none;
 }
 .mobile-nav-drawer.open {
-  transform: translateY(0);
+  display: flex;
 }
 .mobile-nav-item {
   padding: 0.9rem 1.25rem;

@@ -143,7 +143,7 @@
     <!-- Main nav tabs (hidden on small screens) -->
     <nav class="hidden lg:flex items-center gap-xs">
       <button class="nav-btn active" data-nav="home"       onclick="navigate('home')"       data-key="nav_home">الرئيسية</button>
-      <button class="nav-btn"        data-nav="dashboard"  onclick="navigate('dashboard')"  data-key="nav_dashboard">لوحة التحكم</button>
+      <button class="nav-btn"        data-nav="dashboard"   data-key="nav_dashboard">لوحة التحكم</button>
       <button class="nav-btn"        data-nav="upload"     onclick="navigate('upload')"     data-key="nav_upload">رفع البيانات</button>
       <button class="nav-btn"        data-nav="prediction" onclick="navigate('prediction')" data-key="nav_prediction">التنبؤ</button>
       <button class="nav-btn"        data-nav="agent"      onclick="navigate('agent')"      data-key="nav_agent">وكيل البيانات الذكي</button>
@@ -371,7 +371,7 @@
         <div class="space-y-md text-right footer-col">
           <h4 class="text-label-md font-label-md text-on-surface font-bold" data-key="footer-product">المنتج</h4>
           <ul class="space-y-sm">
-            <li><button onclick="navigate('dashboard')" class="text-body-sm font-body-sm text-on-surface-variant hover:text-primary transition-colors" data-key="nav_dashboard">لوحة التحكم</button></li>
+            <li><button class="text-body-sm font-body-sm text-on-surface-variant hover:text-primary transition-colors" data-key="nav_dashboard">لوحة التحكم</button></li>
             <li><button onclick="navigate('prediction')" class="text-body-sm font-body-sm text-on-surface-variant hover:text-primary transition-colors" data-key="nav_prediction">التنبؤ</button></li>
             <li><button onclick="navigate('upload')" class="text-body-sm font-body-sm text-on-surface-variant hover:text-primary transition-colors" data-key="nav_upload">رفع البيانات</button></li>
           </ul>
@@ -428,7 +428,7 @@
     <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-md">
 
       <!-- Total Orders -->
-      <div class="kpi-card primary" onclick="navigate('dashboard')">
+      <div class="kpi-card primary">
         <div class="kpi-card-header">
           <span class="kpi-label" data-key="kpi_orders">إجمالي الطلبات</span>
           <div class="kpi-icon-wrap primary">
@@ -446,7 +446,7 @@
       </div>
 
       <!-- Total Sales -->
-      <div class="kpi-card success" onclick="navigate('dashboard')">
+      <div class="kpi-card success">
         <div class="kpi-card-header">
           <span class="kpi-label" data-key="kpi_sales">إجمالي المبيعات</span>
           <div class="kpi-icon-wrap success">
@@ -464,7 +464,7 @@
       </div>
 
       <!-- Avg Order Value -->
-      <div class="kpi-card purple" onclick="navigate('dashboard')">
+      <div class="kpi-card purple">
         <div class="kpi-card-header">
           <span class="kpi-label" data-key="kpi_aov">متوسط قيمة الطلب</span>
           <div class="kpi-icon-wrap purple">
@@ -482,7 +482,7 @@
       </div>
 
       <!-- Top Category -->
-      <div class="kpi-card orange" onclick="navigate('dashboard')">
+      <div class="kpi-card orange">
         <div class="kpi-card-header">
           <span class="kpi-label" data-key="kpi_category">الفئة الأعلى</span>
           <div class="kpi-icon-wrap orange">
@@ -496,7 +496,7 @@
       </div>
 
       <!-- Top Region -->
-      <div class="kpi-card pink" onclick="navigate('dashboard')">
+      <div class="kpi-card pink">
         <div class="kpi-card-header">
           <span class="kpi-label" data-key="kpi_region">المنطقة الأعلى</span>
           <div class="kpi-icon-wrap pink">
@@ -510,7 +510,7 @@
       </div>
 
       <!-- AI Forecast -->
-      <div class="kpi-card teal" onclick="navigate('prediction')">
+      <div class="kpi-card teal">
         <div class="kpi-card-header">
           <span class="kpi-label" data-key="kpi_product">أفضل منتج</span>
           <div class="kpi-icon-wrap teal">
