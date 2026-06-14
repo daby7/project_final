@@ -245,6 +245,7 @@ body {
 
 /* ── Chart containers ───────────────────────────────────────────────────── */
 .chart-container { min-height: 280px; width: 100%; }
+.chart-container, .chart-container * { touch-action: pan-y; }
 
 /* ── KPI card ───────────────────────────────────────────────────────────── */
 .kpi-card {
