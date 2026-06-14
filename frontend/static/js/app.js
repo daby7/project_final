@@ -1183,6 +1183,8 @@ function initCharts(data) {
       fontFamily: 'inherit',
       toolbar: { show: false },
       animations: { speed: 500 },
+      zoom: { enabled: false },
+      selection: { enabled: false },
     },
     tooltip: {
       theme: 'light',
