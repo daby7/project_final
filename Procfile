@@ -1,1 +1,1 @@
-web: gunicorn -w 2 -b 0.0.0.0:$PORT --timeout 300 --keep-alive 5 "backend.app:create_app()"
+web: gunicorn -w 1 --threads 4 -b 0.0.0.0:$PORT --timeout 300 --keep-alive 5 "backend.app:create_app()"
