@@ -270,31 +270,41 @@ def refresh_vector_store(csv_path: str, dataset_id: str) -> tuple[str, str]:
     return file_id, vs_id
 
 
-def chat(
+def _build_input_messages(
+    message: str,
+    conversation_history: list[dict],
+    language: str,
+    metadata_note: str,
+) -> list[dict]:
+    system_content = _build_system_prompt(language, metadata_note)
+    msgs: list[dict] = [{"role": "developer", "content": system_content}]
+    for entry in conversation_history:
+        role = entry.get("role", "user")
+        content = entry.get("content", "")
+        if role in ("user", "assistant") and content:
+            msgs.append({"role": role, "content": content})
+    msgs.append({"role": "user", "content": message})
+    return msgs
+
+
+def chat_stream(
     message: str,
     vs_id: str,
     conversation_history: list[dict],
     language: str,
     metadata_note: str = "",
-) -> str:
+):
+    """Yield text deltas from OpenAI as they arrive (true streaming)."""
     client = _get_client()
-    system_content = _build_system_prompt(language, metadata_note)
-
-    input_messages: list[dict] = [
-        {"role": "developer", "content": system_content}
-    ]
-    for entry in conversation_history:
-        role = entry.get("role", "user")
-        content = entry.get("content", "")
-        if role in ("user", "assistant") and content:
-            input_messages.append({"role": role, "content": content})
-
-    input_messages.append({"role": "user", "content": message})
+    input_messages = _build_input_messages(message, conversation_history, language, metadata_note)
 
     response = client.responses.create(
         model=_MODEL,
         input=input_messages,
         tools=[{"type": "file_search", "vector_store_ids": [vs_id]}],
         temperature=0.2,
+        stream=True,
     )
-    return response.output_text
+    for event in response:
+        if event.type == "response.output_text.delta":
+            yield event.delta

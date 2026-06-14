@@ -2188,7 +2188,45 @@ async function sendAgentMessage(directText) {
         conversation_history: agentConversationHistory,
       }),
     });
-    const json = await res.json();
+
+    const isStream = (res.headers.get('content-type') || '').includes('text/event-stream');
+    let json;
+    if (!isStream) {
+      json = await res.json();
+    } else {
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let streamedAnswer = '';
+      const assistantMsgIdx = agentMessages.length;
+      agentMessages.push({ role: 'assistant', content: '' });
+
+      outer: while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop();
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          let event;
+          try { event = JSON.parse(line.slice(6)); } catch { continue; }
+          if (event.delta) {
+            streamedAnswer += event.delta;
+            agentMessages[assistantMsgIdx] = { role: 'assistant', content: streamedAnswer };
+            renderAgentMessages();
+          }
+          if (event.done) {
+            json = { success: event.success !== false, answer: event.answer || streamedAnswer, error: event.error, dataset_id: event.dataset_id };
+            break outer;
+          }
+        }
+      }
+      if (!json) throw new Error('No response from server');
+
+      // Remove the streamed placeholder — result handling below will push the final message
+      agentMessages.splice(assistantMsgIdx, 1);
+    }
 
     // Handle transient failures: undo the pre-pushed user message and let user retry
     if (res.status === 503) {

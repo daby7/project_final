@@ -1,3 +1,4 @@
+import json
 import os
 import threading
 from pathlib import Path
@@ -6,7 +7,7 @@ from pathlib import Path
 # clean-CSV thread never race each other over state and OpenAI resource cleanup.
 _openai_setup_lock = threading.Lock()
 
-from flask import Flask, jsonify, request, render_template, send_file
+from flask import Flask, Response, jsonify, request, render_template, send_file, stream_with_context
 
 from backend import state as _state
 from backend.services.workflow_service import run_workflow
@@ -305,19 +306,26 @@ def register_routes(app: Flask) -> None:
 
         metadata_note = _build_metadata_note()
 
-        try:
-            answer = data_agent_service.chat(
-                message=message,
-                vs_id=vs_id,
-                conversation_history=conversation_history,
-                language=language,
-                metadata_note=metadata_note,
-            )
-            return jsonify({"success": True, "answer": answer, "dataset_id": current_id})
-        except Exception as e:
-            print(f"[Agent] OpenAI chat error: {e}")
-            return jsonify({
-                "success": False,
-                "error": data_agent_service.get_error_msg(language),
-                "dataset_id": current_id,
-            }), 500
+        def generate():
+            try:
+                chunks = []
+                for delta in data_agent_service.chat_stream(
+                    message=message,
+                    vs_id=vs_id,
+                    conversation_history=conversation_history,
+                    language=language,
+                    metadata_note=metadata_note,
+                ):
+                    chunks.append(delta)
+                    yield f"data: {json.dumps({'delta': delta})}\n\n"
+                full_answer = "".join(chunks)
+                yield f"data: {json.dumps({'done': True, 'answer': full_answer, 'dataset_id': current_id})}\n\n"
+            except Exception as e:
+                print(f"[Agent] OpenAI chat error: {e}")
+                yield f"data: {json.dumps({'done': True, 'success': False, 'error': data_agent_service.get_error_msg(language), 'dataset_id': current_id})}\n\n"
+
+        return Response(
+            stream_with_context(generate()),
+            content_type="text/event-stream",
+            headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+        )
