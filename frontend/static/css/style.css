@@ -3,6 +3,10 @@
 ───────────────────────────────────────────────────────────────────────────── */
 
 /* ── Base ────────────────────────────────────────────────────────────────── */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
 body {
   font-family: 'Inter', 'Noto Kufi Arabic', sans-serif;
   background-color: #faf8ff;
