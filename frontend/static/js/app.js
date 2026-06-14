@@ -1501,6 +1501,7 @@ function clearAnalysisState() {
   lastAnalyzedDatasetId       = null;
   predictionResult            = null;
   hasPredictionResult         = false;
+  try { localStorage.removeItem('retailsense_dataset_id'); } catch {}
   renderUploadAnalysisPanel();
 }
 
@@ -1667,6 +1668,7 @@ async function doUpload(file) {
 
       /* activate new dataset — invalidate every cache tied to the old file */
       activeDatasetId             = json.dataset_id || String(Date.now());
+      try { localStorage.setItem('retailsense_dataset_id', activeDatasetId); } catch {}
       lastAnalyzedDatasetId       = null;
       cachedDashboardData         = null;
       cachedDashboardDatasetId    = null;
@@ -2189,10 +2191,25 @@ async function sendAgentMessage(directText) {
     const json = await res.json();
 
     // Handle transient failures: undo the pre-pushed user message and let user retry
-    if (res.status === 503 || res.status === 409) {
+    if (res.status === 503) {
       agentMessages.pop();
       if (input) input.value = userText;
       showToast(json.error || t('agent_error'), 'error');
+      return;
+    }
+    if (res.status === 409) {
+      agentMessages = [];
+      agentConversationHistory = [];
+      if (json.dataset_id) {
+        activeDatasetId = json.dataset_id;
+        try { localStorage.setItem('retailsense_dataset_id', activeDatasetId); } catch {}
+      } else {
+        activeDatasetId = null;
+        try { localStorage.removeItem('retailsense_dataset_id'); } catch {}
+      }
+      if (input) input.value = userText;
+      renderAgentPage();
+      showToast(json.error || t('agent_error'), 'warning');
       return;
     }
 
@@ -2260,6 +2277,12 @@ document.addEventListener('DOMContentLoaded', () => {
       dd.classList.remove('active');
     }
   });
+
+  /* Restore dataset session if user refreshed the page */
+  try {
+    const saved = localStorage.getItem('retailsense_dataset_id');
+    if (saved) activeDatasetId = saved;
+  } catch {}
 
   /* Apply saved or default language */
   let savedLang = 'ar';
