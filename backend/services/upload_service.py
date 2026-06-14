@@ -78,6 +78,15 @@ def save_uploaded_csv(file_stream, filename: str) -> dict:
 
     df = _normalize_columns(df)
 
+    # Detect currency symbol from a 'currency' column if present
+    currency_col = next((c for c in df.columns if c.strip().lower() == "currency"), None)
+    if currency_col:
+        non_null = df[currency_col].dropna()
+        symbol = str(non_null.iloc[0]).strip() if not non_null.empty else ""
+    else:
+        symbol = ""
+    _state.set_currency_symbol(symbol)
+
     RAW_DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(RAW_DATA_PATH, index=False)
 
@@ -89,4 +98,5 @@ def save_uploaded_csv(file_stream, filename: str) -> dict:
         "columns": list(df.columns),
         "saved_to": str(RAW_DATA_PATH),
         "dataset_id": dataset_id,
+        "currency_symbol": symbol,
     }

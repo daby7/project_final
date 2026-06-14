@@ -844,7 +844,9 @@ function formatNumber(value) {
 }
 
 function formatCurrency(value) {
-  const sym = t('currency_symbol');
+  const sym = (window._detectedCurrencySymbol !== undefined)
+    ? window._detectedCurrencySymbol
+    : t('currency_symbol');
   if (value == null || isNaN(Number(value))) return sym + '—';
   return sym + Number(value).toLocaleString('en-US', {
     minimumFractionDigits: 2, maximumFractionDigits: 2,
@@ -1665,6 +1667,9 @@ async function doUpload(file) {
     if (json.success) {
       uploadedFileInfo = { name: file.name, size: file.size, rows: json.rows ?? '?' };
       analysisStatus   = 'idle';
+
+      /* store currency symbol detected from CSV (empty string = no symbol) */
+      window._detectedCurrencySymbol = json.currency_symbol ?? '';
 
       /* activate new dataset — invalidate every cache tied to the old file */
       activeDatasetId             = json.dataset_id || String(Date.now());

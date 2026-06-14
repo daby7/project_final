@@ -60,8 +60,8 @@ def _setup_openai_async(csv_path: str, dataset_id: str) -> None:
 
 def _build_metadata_note() -> str:
     """Build a rich statistics note for the AI so it can answer aggregate questions
-    (totals, top products, etc.) correctly regardless of which file chunks
-    file_search happens to retrieve."""
+    (totals, top products, monthly/yearly trends, etc.) correctly regardless of
+    which file chunks file_search happens to retrieve."""
     try:
         import pandas as pd
         csv_path = _CLEAN_CSV if _CLEAN_CSV.exists() else _RAW_CSV
@@ -69,6 +69,7 @@ def _build_metadata_note() -> str:
             return ""
         df = pd.read_csv(csv_path)
         cols = ", ".join(df.columns.tolist())
+        sym = _state.get_currency_symbol()
 
         lines = [
             "\n=== DATASET STATISTICS (use these for aggregate questions) ===",
@@ -77,29 +78,49 @@ def _build_metadata_note() -> str:
             f"- Columns: {cols}",
         ]
 
+        has_profit = any(c.lower() in ("profit", "profit_margin", "net_profit", "cost") for c in df.columns)
+        lines.append(f"- Profit column available: {'Yes' if has_profit else 'No — redirect to Total Sales'}")
+
         if "sales" in df.columns:
-            lines.append(f"- Total sales: ${df['sales'].sum():,.2f}")
-            lines.append(f"- Average order value: ${df['sales'].mean():,.2f}")
-            lines.append(f"- Min order sales: ${df['sales'].min():,.2f}")
-            lines.append(f"- Max order sales: ${df['sales'].max():,.2f}")
+            lines.append(f"- Total sales: {sym}{df['sales'].sum():,.2f}")
+            lines.append(f"- Average order value: {sym}{df['sales'].mean():,.2f}")
+            lines.append(f"- Min order sales: {sym}{df['sales'].min():,.2f}")
+            lines.append(f"- Max order sales: {sym}{df['sales'].max():,.2f}")
+
+        if "date" in df.columns and "sales" in df.columns:
+            df["_date"] = pd.to_datetime(df["date"], errors="coerce")
+            monthly = df.groupby(df["_date"].dt.to_period("M").astype(str))["sales"].sum().sort_index()
+            if not monthly.empty:
+                lines.append("- Monthly sales (use for best-month / monthly-trend questions):")
+                for month, val in monthly.items():
+                    lines.append(f"    * {month}: {sym}{val:,.2f}")
+                best_month = monthly.idxmax()
+                lines.append(f"- Best month by sales: {best_month} ({sym}{monthly[best_month]:,.2f})")
+            yearly = df.groupby(df["_date"].dt.year)["sales"].sum().sort_index()
+            if not yearly.empty:
+                lines.append("- Yearly sales (use for best-year / yearly-trend questions):")
+                for yr, val in yearly.items():
+                    lines.append(f"    * {yr}: {sym}{val:,.2f}")
+                best_year = yearly.idxmax()
+                lines.append(f"- Best year by sales: {best_year} ({sym}{yearly[best_year]:,.2f})")
 
         if "product_name" in df.columns and "sales" in df.columns:
             top5 = df.groupby("product_name")["sales"].sum().sort_values(ascending=False).head(5)
             lines.append("- Top 5 products by total sales:")
             for name, val in top5.items():
-                lines.append(f"    * {name}: ${val:,.2f}")
+                lines.append(f"    * {name}: {sym}{val:,.2f}")
 
         if "category" in df.columns and "sales" in df.columns:
             cat = df.groupby("category")["sales"].sum().sort_values(ascending=False)
             lines.append("- Sales by category:")
             for name, val in cat.items():
-                lines.append(f"    * {name}: ${val:,.2f}")
+                lines.append(f"    * {name}: {sym}{val:,.2f}")
 
         if "region" in df.columns and "sales" in df.columns:
             reg = df.groupby("region")["sales"].sum().sort_values(ascending=False)
             lines.append("- Sales by region:")
             for name, val in reg.items():
-                lines.append(f"    * {name}: ${val:,.2f}")
+                lines.append(f"    * {name}: {sym}{val:,.2f}")
 
         if "customer_segment" in df.columns:
             segs = df["customer_segment"].value_counts()

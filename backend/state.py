@@ -10,6 +10,7 @@ import uuid
 _current_dataset_id: str = ""
 _openai_file_id: str = ""
 _vector_store_id: str = ""
+_currency_symbol: str = ""
 
 
 def new_dataset_id() -> str:
@@ -39,3 +40,12 @@ def get_vector_store_id() -> str:
 def set_vector_store_id(vs_id: str) -> None:
     global _vector_store_id
     _vector_store_id = vs_id
+
+
+def get_currency_symbol() -> str:
+    return _currency_symbol
+
+
+def set_currency_symbol(symbol: str) -> None:
+    global _currency_symbol
+    _currency_symbol = symbol
