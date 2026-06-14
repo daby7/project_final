@@ -14,7 +14,7 @@ from backend.services.workflow_service import run_workflow
 from backend.services.dashboard_service import get_dashboard_data
 from backend.services.prediction_service import predict_sales
 from backend.services.reports_service import get_reports
-from backend.services.upload_service import save_uploaded_csv
+from backend.services.upload_service import save_uploaded_csv, _detect_currency_symbol
 from backend.services.prediction_options_service import get_prediction_options
 from backend.services.prediction_insights_service import get_prediction_insights
 from backend.services import data_agent_service
@@ -70,6 +70,10 @@ def _build_metadata_note() -> str:
         df = pd.read_csv(csv_path)
         cols = ", ".join(df.columns.tolist())
         sym = _state.get_currency_symbol()
+        if not sym:
+            sym = _detect_currency_symbol(df)
+            if sym:
+                _state.set_currency_symbol(sym)
 
         lines = [
             "\n=== DATASET STATISTICS (use these for aggregate questions) ===",

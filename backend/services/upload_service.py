@@ -67,16 +67,15 @@ def _detect_currency_symbol(df: pd.DataFrame) -> str:
             if code in col_lower:
                 return sym
 
-    # 3. Leading symbol character in money-column values
-    money_cols = [c for c in df.columns if c in _MONEY_COLS]
-    for col in money_cols:
+    # 3. Leading symbol character in any column's values
+    for col in df.columns:
         for raw in df[col].dropna().head(20).astype(str):
             first = raw.strip()[:1]
             if first in _SYMBOL_SET:
                 return first
 
-    # 4. Currency code text inside money-column values
-    for col in money_cols:
+    # 4. Currency code text in any column's values
+    for col in df.columns:
         for raw in df[col].dropna().head(20).astype(str).str.upper():
             for code, sym in _CODE_MAP.items():
                 if code.upper() in raw:
