@@ -422,3 +422,105 @@ body {
     max-height: 520px;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   FULL RESPONSIVE — Mobile / Tablet / Desktop
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Mobile: up to 639px ──────────────────────────────────────────────── */
+@media (max-width: 639px) {
+  /* Container padding: 32px → 16px */
+  .px-container-margin {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Hero section: reduce min-height */
+  .hero-gradient {
+    min-height: 520px !important;
+  }
+
+  /* Hero headings */
+  .hero-content h1 { font-size: 1.75rem !important; line-height: 1.25 !important; }
+  .hero-content p  { font-size: 0.9rem  !important; }
+
+  /* CTA buttons: slimmer padding */
+  .cta-buttons button {
+    padding-left: 1.25rem  !important;
+    padding-right: 1.25rem !important;
+    padding-top: 0.625rem    !important;
+    padding-bottom: 0.625rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  /* CTA invite box */
+  .bg-inverse-surface.rounded-2xl {
+    padding: 1.5rem 1rem !important;
+  }
+
+  /* Section headings across the whole site */
+  h1, h2 { word-break: break-word; }
+
+  /* Dashboard hero: title + padding */
+  .hero-gradient-dark {
+    padding-left: 1rem  !important;
+    padding-right: 1rem !important;
+  }
+  .hero-gradient-dark h1 { font-size: 1.2rem !important; }
+  .hero-gradient-dark p  { font-size: 0.85rem !important; }
+
+  /* KPI cards: smaller text + tighter padding */
+  .kpi-card  { padding: 0.7rem 0.75rem 0.6rem !important; }
+  .kpi-value { font-size: 1.15rem !important; }
+  .kpi-label { font-size: 0.7rem !important; }
+
+  /* Charts */
+  .chart-container { min-height: 190px !important; }
+  #price-sensitivity-chart   { height: 190px !important; }
+  #confidence-chart          { min-height: 120px !important; }
+  #regional-distribution-chart { min-height: 150px !important; }
+
+  /* Upload zone */
+  .upload-zone { padding: 1.5rem 1rem !important; }
+
+  /* Prediction: result value */
+  #result-display { font-size: 1.75rem !important; }
+
+  /* Prediction: analyze button */
+  #analyze-btn { height: 48px !important; }
+
+  /* Agent section headings */
+  #section-agent h2 { font-size: 1.2rem !important; }
+  #section-agent p.text-body-lg { font-size: 0.9rem !important; }
+
+  /* Prediction page headings */
+  #section-prediction h1 { font-size: 1.4rem !important; }
+  #section-prediction p.text-body-lg { font-size: 0.875rem !important; }
+
+  /* Benefits section: image height */
+  .flex-1.w-full.h-48 { height: 8rem !important; }
+
+  /* How-it-works cards: reduce internal padding */
+  .retail-card.p-xl { padding: 1rem !important; }
+}
+
+/* ── Tablet: 640px – 1023px ───────────────────────────────────────────── */
+@media (min-width: 640px) and (max-width: 1023px) {
+  /* Container padding: 32px → 24px */
+  .px-container-margin {
+    padding-left: 1.5rem  !important;
+    padding-right: 1.5rem !important;
+  }
+
+  /* Hero: comfortable height */
+  .hero-gradient { min-height: 600px !important; }
+
+  /* Dashboard hero layout: stack nicely at mid-width */
+  .hero-gradient-dark h1 { font-size: 1.45rem !important; }
+
+  /* KPI: 3 columns already handled by Tailwind md:grid-cols-3 ✓ */
+  /* Charts: keep default sizes */
+
+  /* Prediction result: moderate size */
+  #result-display { font-size: 2rem !important; }
+}
