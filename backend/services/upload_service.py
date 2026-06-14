@@ -42,6 +42,49 @@ _COLUMN_ALIASES: dict[str, list[str]] = {
 }
 
 
+_CODE_MAP = {
+    "usd": "$", "dollar": "$",
+    "ils": "₪", "nis": "₪", "shekel": "₪",
+    "eur": "€", "euro": "€",
+    "gbp": "£", "pound": "£",
+}
+_SYMBOL_SET = {"$", "₪", "€", "£", "¥"}
+_MONEY_COLS = {"sales", "price", "revenue", "amount", "cost", "total_sales"}
+
+
+def _detect_currency_symbol(df: pd.DataFrame) -> str:
+    # 1. Explicit 'currency' column
+    currency_col = next((c for c in df.columns if c.strip().lower() == "currency"), None)
+    if currency_col:
+        non_null = df[currency_col].dropna()
+        if not non_null.empty:
+            return str(non_null.iloc[0]).strip()
+
+    # 2. Currency code/name embedded in a column name
+    for col in df.columns:
+        col_lower = col.lower()
+        for code, sym in _CODE_MAP.items():
+            if code in col_lower:
+                return sym
+
+    # 3. Leading symbol character in money-column values
+    money_cols = [c for c in df.columns if c in _MONEY_COLS]
+    for col in money_cols:
+        for raw in df[col].dropna().head(20).astype(str):
+            first = raw.strip()[:1]
+            if first in _SYMBOL_SET:
+                return first
+
+    # 4. Currency code text inside money-column values
+    for col in money_cols:
+        for raw in df[col].dropna().head(20).astype(str).str.upper():
+            for code, sym in _CODE_MAP.items():
+                if code.upper() in raw:
+                    return sym
+
+    return ""
+
+
 def _normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
     """Rename DataFrame columns to canonical snake_case names where aliases match."""
     mapping: dict[str, str] = {}
@@ -77,14 +120,7 @@ def save_uploaded_csv(file_stream, filename: str) -> dict:
         raise ValueError("The uploaded CSV file is empty.")
 
     df = _normalize_columns(df)
-
-    # Detect currency symbol from a 'currency' column if present
-    currency_col = next((c for c in df.columns if c.strip().lower() == "currency"), None)
-    if currency_col:
-        non_null = df[currency_col].dropna()
-        symbol = str(non_null.iloc[0]).strip() if not non_null.empty else ""
-    else:
-        symbol = ""
+    symbol = _detect_currency_symbol(df)
     _state.set_currency_symbol(symbol)
 
     RAW_DATA_PATH.parent.mkdir(parents=True, exist_ok=True)

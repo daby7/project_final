@@ -843,14 +843,28 @@ function formatNumber(value) {
   return Number(value).toLocaleString('en-US', { maximumFractionDigits: 0 });
 }
 
+function getActiveCurrencySymbol() {
+  if (window._detectedCurrencySymbol !== undefined && window._detectedCurrencySymbol !== '') {
+    return window._detectedCurrencySymbol;
+  }
+  return t('currency_symbol');
+}
+
 function formatCurrency(value) {
-  const sym = (window._detectedCurrencySymbol !== undefined)
-    ? window._detectedCurrencySymbol
-    : t('currency_symbol');
+  const sym = getActiveCurrencySymbol();
   if (value == null || isNaN(Number(value))) return sym + '—';
   return sym + Number(value).toLocaleString('en-US', {
     minimumFractionDigits: 2, maximumFractionDigits: 2,
   });
+}
+
+function formatCompact(value) {
+  const sym = getActiveCurrencySymbol();
+  const abs = Math.abs(Number(value));
+  if (abs >= 1_000_000_000) return sym + (value / 1_000_000_000).toFixed(1) + 'B';
+  if (abs >= 1_000_000)     return sym + (value / 1_000_000).toFixed(2) + 'M';
+  if (abs >= 1_000)         return sym + (value / 1_000).toFixed(1) + 'K';
+  return sym + Number(value).toFixed(0);
 }
 
 function formatPercent(value) {
@@ -1220,7 +1234,7 @@ function initCharts(data) {
       },
       yaxis: {
         opposite: isRtl,
-        labels: { formatter: v => t('currency_symbol') + (v / 1000).toFixed(0) + 'k', style: { fontSize: '11px' } },
+        labels: { formatter: v => formatCompact(v), style: { fontSize: '11px' } },
       },
     });
     chartInstances.cat.render();
@@ -1248,7 +1262,7 @@ function initCharts(data) {
               total: {
                 show: true,
                 label: t('kpi_sales'),
-                formatter: w => t('currency_symbol') + (w.globals.seriesTotals.reduce((a, b) => a + b, 0) / 1000).toFixed(0) + 'k',
+                formatter: w => formatCompact(w.globals.seriesTotals.reduce((a, b) => a + b, 0)),
                 fontFamily: 'inherit', fontWeight: '700', fontSize: '14px', color: '#004ac6',
               },
             },
@@ -1290,7 +1304,7 @@ function initCharts(data) {
         opposite: isRtl,
         labels: {
           minWidth: 60,
-          formatter: v => t('currency_symbol') + (v / 1000).toFixed(0) + 'k',
+          formatter: v => formatCompact(v),
           style: { fontSize: '11px' },
         },
       },
@@ -1371,7 +1385,7 @@ function initPredictionCharts(insightsData) {
     const sensData = data?.price_sensitivity || [];
     const sensLabels = sensData.map(d => d.label);
     const sensVals   = sensData.map(d => d.avg_sales);
-    const sym = t('currency_symbol');
+    const sym = getActiveCurrencySymbol();
     predChartInstances.sens = new ApexCharts(sensEl, {
       series: [{ name: t('kpi_sales'), data: sensVals }],
       chart: {
@@ -2044,7 +2058,7 @@ async function runPrediction(e) {
 
     if (json.success && json.predicted_sales !== undefined) {
       const raw = Number(json.predicted_sales);
-      const cur = t('currency_symbol');
+      const cur = getActiveCurrencySymbol();
       const val = cur + raw.toLocaleString('en-US', {
         minimumFractionDigits: 2, maximumFractionDigits: 2,
       });
