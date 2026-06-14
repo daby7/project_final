@@ -415,6 +415,35 @@ body {
   text-align: right;
 }
 
+/* ── Mobile nav drawer ───────────────────────────────────────────────────── */
+.mobile-nav-drawer {
+  position: fixed;
+  top: 60px;
+  left: 0; right: 0;
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-110%);
+  transition: transform 0.25s ease;
+}
+.mobile-nav-drawer.open {
+  transform: translateY(0);
+}
+.mobile-nav-item {
+  padding: 0.9rem 1.25rem;
+  text-align: right;
+  font-size: 0.95rem;
+  color: #1a1a2e;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.mobile-nav-item:hover { background: #f3f0ff; }
+
 /* ── Responsive chat messages area ─────────────────────────────────────── */
 .agent-messages-area {
   min-height: 200px;

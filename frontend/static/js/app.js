@@ -1023,6 +1023,21 @@ function toggleLangDropdown() {
   $('lang-dropdown')?.classList.toggle('active');
 }
 
+function toggleMobileMenu() {
+  const drawer = $('mobile-nav');
+  const icon = $('hamburger-icon');
+  const isOpen = drawer.classList.toggle('open');
+  if (icon) icon.textContent = isOpen ? 'close' : 'menu';
+}
+
+function mobileNavigate(section) {
+  const drawer = $('mobile-nav');
+  const icon = $('hamburger-icon');
+  drawer.classList.remove('open');
+  if (icon) icon.textContent = 'menu';
+  navigate(section);
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    HEALTH CHECK
 ═══════════════════════════════════════════════════════════════════════════ */
