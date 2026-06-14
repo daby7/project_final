@@ -80,6 +80,8 @@ def _build_metadata_note() -> str:
 
         has_profit = any(c.lower() in ("profit", "profit_margin", "net_profit", "cost") for c in df.columns)
         lines.append(f"- Profit column available: {'Yes' if has_profit else 'No — redirect to Total Sales'}")
+        if sym:
+            lines.append(f"- Currency symbol: {sym}  ← use this symbol for ALL monetary values in your answer")
 
         if "sales" in df.columns:
             lines.append(f"- Total sales: {sym}{df['sales'].sum():,.2f}")
