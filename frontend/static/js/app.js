@@ -2278,12 +2278,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /* Restore dataset session if user refreshed the page */
-  try {
-    const saved = localStorage.getItem('retailsense_dataset_id');
-    if (saved) activeDatasetId = saved;
-  } catch {}
-
   /* Apply saved or default language */
   let savedLang = 'ar';
   try { savedLang = localStorage.getItem('retailsense_lang') || 'ar'; } catch {}
