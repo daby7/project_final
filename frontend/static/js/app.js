@@ -2171,6 +2171,14 @@ async function sendAgentMessage(directText) {
     });
     const json = await res.json();
 
+    // Handle transient failures: undo the pre-pushed user message and let user retry
+    if (res.status === 503 || res.status === 409) {
+      agentMessages.pop();
+      if (input) input.value = userText;
+      showToast(json.error || t('agent_error'), 'error');
+      return;
+    }
+
     // Discard stale response if dataset changed while waiting
     if (json.dataset_id && json.dataset_id !== activeDatasetId) return;
 
