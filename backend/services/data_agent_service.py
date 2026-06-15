@@ -71,7 +71,7 @@ _LANGUAGE_INSTRUCTIONS = {
         "Consumer → أفراد, Home Office → مكتب منزلي, Credit Card → بطاقة ائتمان, "
         "Cash → نقداً, Bank Transfer → تحويل بنكي). "
         "If a value has no safe Arabic equivalent, keep the original CSV value as-is.\n"
-        "Numbers and monetary values stay exactly as they appear in the data.\n"
+        "Numbers: keep the Western numeral format as-is. Monetary values: if DATASET STATISTICS contains a 'Currency symbol:' line, prefix every monetary value in your answer with that symbol.\n"
         "Use the DATASET STATISTICS block to answer aggregate questions directly and confidently.\n"
         "If the question is unrelated to the CSV data, refuse politely in Arabic."
     ),
@@ -88,7 +88,7 @@ _LANGUAGE_INSTRUCTIONS = {
         "Consumer → צרכן, Home Office → משרד ביתי, Credit Card → כרטיס אשראי, "
         "Cash → מזומן, Bank Transfer → העברה בנקאית). "
         "If a value has no safe Hebrew equivalent, keep the original CSV value as-is.\n"
-        "Numbers and monetary values stay exactly as they appear in the data.\n"
+        "Numbers: keep the Western numeral format as-is. Monetary values: if DATASET STATISTICS contains a 'Currency symbol:' line, prefix every monetary value in your answer with that symbol.\n"
         "Use the DATASET STATISTICS block to answer aggregate questions directly and confidently.\n"
         "If the question is unrelated to the CSV data, refuse politely in Hebrew."
     ),
