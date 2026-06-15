@@ -481,7 +481,7 @@ def clean_and_preprocess_data() -> str:
     # Remove rows with invalid important values
     df = df.dropna(subset=["date", "price", "quantity", "discount", "sales"])
 
-    # Fill missing text values
+    # Fill missing text values (add column with "Unknown" if not present)
     text_columns = [
         "order_id",
         "customer_id",
@@ -494,7 +494,14 @@ def clean_and_preprocess_data() -> str:
     ]
 
     for column in text_columns:
-        df[column] = df[column].fillna("Unknown")
+        if column in df.columns:
+            df[column] = df[column].fillna("Unknown")
+        else:
+            df[column] = "Unknown"
+
+    # Normalise discount: if stored as percentage (e.g. 20 for 20%), convert to fraction
+    if "discount" in df.columns and not df["discount"].empty and df["discount"].max() > 1:
+        df["discount"] = df["discount"] / 100
 
     # Business rules
     df = df[df["price"] > 0]

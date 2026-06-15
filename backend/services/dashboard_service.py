@@ -25,13 +25,13 @@ def get_dashboard_data() -> dict:
     total_orders = int(len(df))
     average_order_value = round(float(df["sales"].mean()), 2)
 
-    category_sales = df.groupby("category")["sales"].sum().sort_values(ascending=False)
-    region_sales = df.groupby("region")["sales"].sum().sort_values(ascending=False)
-    product_sales = df.groupby("product_name")["sales"].sum().sort_values(ascending=False)
+    category_sales = df.groupby("category")["sales"].sum().sort_values(ascending=False) if "category" in df.columns else pd.Series(dtype=float)
+    region_sales = df.groupby("region")["sales"].sum().sort_values(ascending=False) if "region" in df.columns else pd.Series(dtype=float)
+    product_sales = df.groupby("product_name")["sales"].sum().sort_values(ascending=False) if "product_name" in df.columns else pd.Series(dtype=float)
 
-    top_category = str(category_sales.index[0])
-    top_region = str(region_sales.index[0])
-    best_product = str(product_sales.index[0])
+    top_category = str(category_sales.index[0]) if not category_sales.empty else ""
+    top_region = str(region_sales.index[0]) if not region_sales.empty else ""
+    best_product = str(product_sales.index[0]) if not product_sales.empty else ""
 
     sales_by_category = [
         {"category": str(cat), "sales": round(float(val), 2)}
