@@ -34,6 +34,24 @@ _REPORT_FILES = {
     "eda_report":        (_ARTIFACTS / "eda_report.html",      True),   # True = open in browser
 }
 
+_VALUE_TRANSLATIONS_PATH = _ARTIFACTS / "value_translations.json"
+
+
+def _load_value_translations() -> dict:
+    if _VALUE_TRANSLATIONS_PATH.exists():
+        try:
+            return json.loads(_VALUE_TRANSLATIONS_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            return {}
+    return {}
+
+
+def _tr(val: str, translations: dict, language: str) -> str:
+    entry = translations.get(val) or translations.get(val.lower())
+    if entry:
+        return entry.get(language, val)
+    return val
+
 
 def _setup_openai_async(csv_path: str, dataset_id: str) -> None:
     """Upload csv_path to OpenAI and update state. Runs in a daemon thread.
@@ -58,7 +76,7 @@ def _setup_openai_async(csv_path: str, dataset_id: str) -> None:
             print(f"[Agent] OpenAI setup failed: {e}", flush=True)
 
 
-def _build_metadata_note() -> str:
+def _build_metadata_note(language: str = "en") -> str:
     """Build a rich statistics note for the AI so it can answer aggregate questions
     (totals, top products, monthly/yearly trends, etc.) correctly regardless of
     which file chunks file_search happens to retrieve."""
@@ -83,6 +101,8 @@ def _build_metadata_note() -> str:
                 sym = _detect_currency_symbol(pd.read_csv(_RAW_CSV))
             if sym:
                 _state.set_currency_symbol(sym)
+
+        translations = _load_value_translations() if language != "en" else {}
 
         lines = [
             "\n=== DATASET STATISTICS (use these for aggregate questions) ===",
@@ -123,33 +143,43 @@ def _build_metadata_note() -> str:
             top5 = df.groupby("product_name")["sales"].sum().sort_values(ascending=False).head(5)
             lines.append("- Top 5 products by total sales:")
             for name, val in top5.items():
-                lines.append(f"    * {name}: {sym}{val:,.2f}")
+                lines.append(f"    * {_tr(name, translations, language)}: {sym}{val:,.2f}")
 
         if "category" in df.columns and "sales" in df.columns:
             cat = df.groupby("category")["sales"].sum().sort_values(ascending=False)
             lines.append("- Sales by category:")
             for name, val in cat.items():
-                lines.append(f"    * {name}: {sym}{val:,.2f}")
+                lines.append(f"    * {_tr(name, translations, language)}: {sym}{val:,.2f}")
 
         if "region" in df.columns and "sales" in df.columns:
             reg = df.groupby("region")["sales"].sum().sort_values(ascending=False)
             lines.append("- Sales by region:")
             for name, val in reg.items():
-                lines.append(f"    * {name}: {sym}{val:,.2f}")
+                lines.append(f"    * {_tr(name, translations, language)}: {sym}{val:,.2f}")
 
         if "customer_segment" in df.columns:
             segs = df["customer_segment"].value_counts()
             lines.append("- Customer segment breakdown:")
             for seg, cnt in segs.items():
-                lines.append(f"    * {seg}: {cnt} orders")
+                lines.append(f"    * {_tr(seg, translations, language)}: {cnt} orders")
 
         if "payment_method" in df.columns:
             pays = df["payment_method"].value_counts()
             lines.append("- Payment methods:")
             for pm, cnt in pays.items():
-                lines.append(f"    * {pm}: {cnt} orders")
+                lines.append(f"    * {_tr(pm, translations, language)}: {cnt} orders")
 
         lines.append("=== END DATASET STATISTICS ===\n")
+
+        if translations:
+            tr_lines = ["=== VALUE TRANSLATIONS (use these when citing data values) ==="]
+            for en_val, entry in translations.items():
+                localized = entry.get(language, en_val)
+                if localized != en_val:
+                    tr_lines.append(f"  {en_val} → {localized}")
+            tr_lines.append("=== END VALUE TRANSLATIONS ===\n")
+            lines.extend(tr_lines)
+
         return "\n".join(lines)
     except Exception:
         return ""
@@ -340,7 +370,7 @@ def register_routes(app: Flask) -> None:
                 "dataset_id": current_id,
             })
 
-        metadata_note = _build_metadata_note()
+        metadata_note = _build_metadata_note(language=language)
 
         def generate():
             try:
