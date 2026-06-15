@@ -71,7 +71,16 @@ def _build_metadata_note() -> str:
         cols = ", ".join(df.columns.tolist())
         sym = _state.get_currency_symbol()
         if not sym:
-            sym = _detect_currency_symbol(df)
+            # 1. Try persisted metadata (survives server restarts)
+            _metadata_path = Path("artifacts/dataset_metadata.json")
+            if _metadata_path.exists():
+                try:
+                    sym = json.loads(_metadata_path.read_text(encoding="utf-8")).get("currency_symbol", "")
+                except Exception:
+                    sym = ""
+            # 2. Try raw CSV (still has original symbols before cleaning stripped them)
+            if not sym and _RAW_CSV.exists():
+                sym = _detect_currency_symbol(pd.read_csv(_RAW_CSV))
             if sym:
                 _state.set_currency_symbol(sym)
 

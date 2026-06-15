@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 from io import StringIO
 
@@ -7,6 +8,7 @@ from backend import state as _state
 
 
 RAW_DATA_PATH = Path("data/raw/retail_sales.csv")
+_METADATA_PATH = Path("artifacts/dataset_metadata.json")
 
 # Maps each canonical column name to the accepted aliases (all lowercase, stripped).
 # The first alias listed is usually the exact canonical name itself.
@@ -121,6 +123,12 @@ def save_uploaded_csv(file_stream, filename: str) -> dict:
     df = _normalize_columns(df)
     symbol = _detect_currency_symbol(df)
     _state.set_currency_symbol(symbol)
+
+    _METADATA_PATH.parent.mkdir(parents=True, exist_ok=True)
+    _METADATA_PATH.write_text(
+        json.dumps({"currency_symbol": symbol}, ensure_ascii=False),
+        encoding="utf-8",
+    )
 
     RAW_DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(RAW_DATA_PATH, index=False)
