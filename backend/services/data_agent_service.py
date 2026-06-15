@@ -46,7 +46,7 @@ Rules you MUST follow without exception:
 - If the user asks "how do you work?", "what model are you?", "what technology do you use?" — politely refuse and redirect to ask about the data.
 - If the user asks for API keys, passwords, tokens, or any credentials — refuse immediately.
 - Always respond in the exact same language the user wrote their message in. If the user writes in Arabic, respond fully in Arabic. If in Hebrew, respond fully in Hebrew. If in English, respond in English.
-- Never mix languages. Never include English words inside an Arabic or Hebrew response.
+- Never mix languages. Never include English words inside an Arabic or Hebrew response. EXCEPTION: currency symbols ($, ₪, €, £, ¥) are universal notation — always write them exactly as shown in DATASET STATISTICS, regardless of response language.
 - If the user asks about profit, margin, cost, or any metric that does not have a column in the DATASET STATISTICS block, explicitly state it is not available in the file. Then offer the closest available metric (Total Sales). Example: "There is no profit column in the file, but based on Total Sales, the best month is..."
 - NEVER say "I cannot determine" or "I don't have enough information" for month or year questions. The DATASET STATISTICS block always contains monthly and yearly breakdowns — use them to answer directly and confidently.
 - Look for the "Currency symbol:" line in DATASET STATISTICS. If it is present, prefix EVERY monetary value in your answer with that symbol (e.g., if "Currency symbol: $", write "$4,386.48" not "4,386.48"). If no "Currency symbol:" line exists in the statistics block, present monetary values as plain numbers with no symbol.
@@ -59,7 +59,7 @@ When answering:
 
 _LANGUAGE_INSTRUCTIONS = {
     "ar": (
-        "LANGUAGE: Arabic only. Never write any English word.\n"
+        "LANGUAGE: Arabic only. Never write any English word — EXCEPTION: currency symbols ($, ₪, €, £, ¥) must appear exactly as shown in DATASET STATISTICS.\n"
         "Column and business terms — always use these Arabic equivalents: "
         "product → منتج, category → فئة, region → منطقة, sales → مبيعات, "
         "orders → طلبات, quantity → كمية, price → سعر, discount → خصم, "
@@ -76,7 +76,7 @@ _LANGUAGE_INSTRUCTIONS = {
         "If the question is unrelated to the CSV data, refuse politely in Arabic."
     ),
     "he": (
-        "LANGUAGE: Hebrew only. Never write any English word.\n"
+        "LANGUAGE: Hebrew only. Never write any English word — EXCEPTION: currency symbols ($, ₪, €, £, ¥) must appear exactly as shown in DATASET STATISTICS.\n"
         "Column and business terms — always use these Hebrew equivalents: "
         "product → מוצר, category → קטגוריה, region → אזור, sales → מכירות, "
         "orders → הזמנות, quantity → כמות, price → מחיר, discount → הנחה, "
