@@ -553,3 +553,150 @@ body {
   /* Prediction result: moderate size */
   #result-display { font-size: 2rem !important; }
 }
+
+/* ── Spotlight Glow — Blue/White Palette ────────────────────────────────────
+   JS writes pointer position to :root → all sg-* elements inherit.
+   Hue stays 215-240 (pure blue range). Spread = 25 keeps it blue/white only.
+   ─────────────────────────────────────────────────────────────────────────── */
+:root {
+  --sg-x: -9999;
+  --sg-y: -9999;
+  --sg-xp: 0;
+  --sg-size: 500;
+  --sg-base: 215;
+  --sg-spread: 25;
+  --sg-border: 3;
+  --sg-border-px: calc(var(--sg-border) * 1px);
+  --sg-size-px:   calc(var(--sg-size)   * 1px);
+  --sg-hue:       calc(var(--sg-base) + var(--sg-xp) * var(--sg-spread));
+}
+
+/* ── Card glow wrapper: glowing border tracks the cursor ── */
+.sg-card {
+  position: relative;
+  border-radius: 14px;
+  border: var(--sg-border-px) solid transparent;
+}
+
+.sg-card::before,
+.sg-card::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: calc(var(--sg-border-px) * -1);
+  border: var(--sg-border-px) solid transparent;
+  border-radius: 14px;
+  background-attachment: fixed;
+  mask:
+    linear-gradient(transparent, transparent),
+    linear-gradient(white, white);
+  mask-clip: padding-box, border-box;
+  mask-composite: intersect;
+}
+
+.sg-card::before {
+  background-image: radial-gradient(
+    calc(var(--sg-size-px) * 0.75) calc(var(--sg-size-px) * 0.75) at
+    calc(var(--sg-x) * 1px) calc(var(--sg-y) * 1px),
+    hsl(var(--sg-hue) 100% 55% / 1),
+    transparent 100%
+  );
+  filter: brightness(2.5);
+}
+
+.sg-card::after {
+  background-image: radial-gradient(
+    calc(var(--sg-size-px) * 0.4) calc(var(--sg-size-px) * 0.4) at
+    calc(var(--sg-x) * 1px) calc(var(--sg-y) * 1px),
+    hsl(0 0% 100% / 0.9),
+    transparent 100%
+  );
+}
+
+/* ── Inner spotlight tint: subtle blue wash on white backgrounds ── */
+.sg-inner {
+  background-image: radial-gradient(
+    var(--sg-size-px) var(--sg-size-px) at
+    calc(var(--sg-x) * 1px) calc(var(--sg-y) * 1px),
+    hsl(var(--sg-hue) 100% 60% / 0.11),
+    transparent
+  ) !important;
+  background-attachment: fixed !important;
+}
+
+/* ── Chip glow: pill/button border shimmer, radius inherits from element ── */
+.sg-chip {
+  position: relative;
+}
+
+.sg-chip::before,
+.sg-chip::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: -1px;
+  border: 1px solid transparent;
+  border-radius: inherit;
+  background-attachment: fixed;
+  mask:
+    linear-gradient(transparent, transparent),
+    linear-gradient(white, white);
+  mask-clip: padding-box, border-box;
+  mask-composite: intersect;
+}
+
+.sg-chip::before {
+  background-image: radial-gradient(
+    calc(var(--sg-size-px) * 0.5) calc(var(--sg-size-px) * 0.5) at
+    calc(var(--sg-x) * 1px) calc(var(--sg-y) * 1px),
+    hsl(var(--sg-hue) 100% 65% / 1),
+    transparent 100%
+  );
+  filter: brightness(2);
+}
+
+.sg-chip::after {
+  background-image: radial-gradient(
+    calc(var(--sg-size-px) * 0.25) calc(var(--sg-size-px) * 0.25) at
+    calc(var(--sg-x) * 1px) calc(var(--sg-y) * 1px),
+    hsl(0 0% 100% / 0.85),
+    transparent 100%
+  );
+}
+
+/* ── Agent / Chatbot section — lilac/purple palette override ─────────────
+   Overriding --sg-base and --sg-spread shifts the entire glow system
+   from blue (215) to purple/lilac (270–310) for this section only.
+   ─────────────────────────────────────────────────────────────────────── */
+#section-agent {
+  --sg-base:   265;
+  --sg-spread: 50;
+}
+
+/* Purple accent: send button, bouncing dots */
+#section-agent .bg-primary {
+  background-color: #7c3aed !important;
+}
+
+/* Purple hover on "clear chat" link */
+#section-agent .hover\:text-primary:hover {
+  color: #a78bfa !important;
+}
+
+/* Purple focus ring on input */
+#section-agent input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.30) !important;
+  border-color: rgba(139, 92, 246, 0.50) !important;
+}
+
+/* Inner spotlight tint: override to purple wash on agent cards */
+#section-agent .sg-inner {
+  background-image: radial-gradient(
+    var(--sg-size-px) var(--sg-size-px) at
+    calc(var(--sg-x) * 1px) calc(var(--sg-y) * 1px),
+    hsl(var(--sg-hue) 85% 65% / 0.10),
+    transparent
+  ) !important;
+  background-attachment: fixed !important;
+}
