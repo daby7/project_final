@@ -472,14 +472,31 @@ def clean_and_preprocess_data() -> str:
     # Convert date column to datetime
     df["date"] = pd.to_datetime(df["date"], errors="coerce")
 
-    # Convert numeric columns to numbers
+    # Strip currency symbols, thousand-separators, and % from numeric columns,
+    # then convert to float. Works for values like "$1,096.62", "20%", "1.096,62".
     numeric_columns = ["price", "quantity", "discount", "sales"]
 
     for column in numeric_columns:
-        df[column] = pd.to_numeric(df[column], errors="coerce")
+        if column in df.columns:
+            cleaned = df[column].astype(str).str.strip()
+            cleaned = cleaned.str.replace(r'[$€£¥₪\s]', '', regex=True)
+            cleaned = cleaned.str.replace(',', '', regex=False)
+            cleaned = cleaned.str.replace('%', '', regex=False)
+            df[column] = pd.to_numeric(cleaned, errors="coerce")
+        else:
+            df[column] = float("nan")
 
-    # Remove rows with invalid important values
-    df = df.dropna(subset=["date", "price", "quantity", "discount", "sales"])
+    # Normalise discount BEFORE dropna: percentage format (e.g. 20 → 0.20)
+    if "discount" in df.columns:
+        max_disc = df["discount"].max()
+        if pd.notna(max_disc) and max_disc > 1:
+            df["discount"] = df["discount"] / 100
+
+    # Remove rows with missing required numeric values
+    drop_subset = [c for c in ["date", "price", "quantity", "sales"] if c in df.columns]
+    if "discount" in df.columns and df["discount"].notna().any():
+        drop_subset.append("discount")
+    df = df.dropna(subset=drop_subset)
 
     # Fill missing text values (add column with "Unknown" if not present)
     text_columns = [
@@ -499,14 +516,11 @@ def clean_and_preprocess_data() -> str:
         else:
             df[column] = "Unknown"
 
-    # Normalise discount: if stored as percentage (e.g. 20 for 20%), convert to fraction
-    if "discount" in df.columns and not df["discount"].empty and df["discount"].max() > 1:
-        df["discount"] = df["discount"] / 100
-
     # Business rules
     df = df[df["price"] > 0]
     df = df[df["quantity"] > 0]
-    df = df[(df["discount"] >= 0) & (df["discount"] <= 1)]
+    if "discount" in df.columns:
+        df = df[(df["discount"] >= 0) & (df["discount"] <= 1)]
     df = df[df["sales"] >= 0]
 
     # Save cleaned data
@@ -644,9 +658,10 @@ def generate_eda_report_and_insights() -> str:
     total_sales = round(df["sales"].sum(), 2)
     average_order_value = round(df["sales"].mean(), 2)
 
-    best_category = category_sales.index[0]
-    best_region = region_sales.index[0]
-    best_product = df.groupby("product_name")["sales"].sum().idxmax()
+    best_category = str(category_sales.index[0]) if not category_sales.empty else "N/A"
+    best_region = str(region_sales.index[0]) if not region_sales.empty else "N/A"
+    prod_sales = df.groupby("product_name")["sales"].sum() if "product_name" in df.columns else pd.Series(dtype=float)
+    best_product = str(prod_sales.idxmax()) if not prod_sales.empty else "N/A"
 
     insights_text = f"""
 # Retail Sales Business Insights
